@@ -73,6 +73,9 @@
 		BAE1C1F12BEC424400183C8A /* PublicPoolsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1C1F02BEC424400183C8A /* PublicPoolsPage.swift */; };
 		BAF215B62C1A3A0700DF85B2 /* EntriesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215B52C1A3A0700DF85B2 /* EntriesList.swift */; };
 		BAF215B82C1A3B2E00DF85B2 /* CircleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215B72C1A3B2E00DF85B2 /* CircleCard.swift */; };
+		BAF215BA2C1A41CB00DF85B2 /* Stripes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215B92C1A41CB00DF85B2 /* Stripes.swift */; };
+		BAF215BC2C1A440100DF85B2 /* StripeBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215BB2C1A440100DF85B2 /* StripeBG.swift */; };
+		BAF215BE2C1A52D600DF85B2 /* CreatePoolFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +114,9 @@
 		BAE1C1F02BEC424400183C8A /* PublicPoolsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicPoolsPage.swift; sourceTree = "<group>"; };
 		BAF215B52C1A3A0700DF85B2 /* EntriesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesList.swift; sourceTree = "<group>"; };
 		BAF215B72C1A3B2E00DF85B2 /* CircleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCard.swift; sourceTree = "<group>"; };
+		BAF215B92C1A41CB00DF85B2 /* Stripes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stripes.swift; sourceTree = "<group>"; };
+		BAF215BB2C1A440100DF85B2 /* StripeBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeBG.swift; sourceTree = "<group>"; };
+		BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePoolFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +213,9 @@
 				BADEA7D42C05BA9700B99993 /* ShadowBox.swift */,
 				BAF215B52C1A3A0700DF85B2 /* EntriesList.swift */,
 				BAF215B72C1A3B2E00DF85B2 /* CircleCard.swift */,
+				BAF215B92C1A41CB00DF85B2 /* Stripes.swift */,
+				BAF215BB2C1A440100DF85B2 /* StripeBG.swift */,
+				BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */,
 			);
 			path = Crunch;
 			sourceTree = "<group>";
@@ -346,9 +355,11 @@
 				BA7F9CB32C0129470044E4DD /* AppObject.swift in Sources */,
 				BA58E0182BFD5E9F00962E2E /* GolfPoolLeaderboard.swift in Sources */,
 				BA7F9CAB2C0117990044E4DD /* SignInForm.swift in Sources */,
+				BAF215BE2C1A52D600DF85B2 /* CreatePoolFlow.swift in Sources */,
 				BA58E0122BF6B38C00962E2E /* Profile.swift in Sources */,
 				BA2C26AE2BFEB0C000C65AEB /* CreateCirclePage.swift in Sources */,
 				BA7F9CAF2C011CD30044E4DD /* AuthStateObject.swift in Sources */,
+				BAF215BC2C1A440100DF85B2 /* StripeBG.swift in Sources */,
 				BA7F9CAD2C0118D80044E4DD /* SignUpForm.swift in Sources */,
 				BADEA7D32C05B1F600B99993 /* PoolCard.swift in Sources */,
 				BA58E00D2BF5713100962E2E /* GolfPickSix.swift in Sources */,
@@ -365,6 +376,7 @@
 				BAE1C1DB2BD18E6E00183C8A /* Home.swift in Sources */,
 				BAF215B82C1A3B2E00DF85B2 /* CircleCard.swift in Sources */,
 				BA58E00B2BF56CAF00962E2E /* EntryPage.swift in Sources */,
+				BAF215BA2C1A41CB00DF85B2 /* Stripes.swift in Sources */,
 				BAE1C1EE2BEC2CF300183C8A /* PoolPage.swift in Sources */,
 				BA7F9CB12C0122D80044E4DD /* CrCircle.swift in Sources */,
 				BA7F9CB72C05A9270044E4DD /* MyPoolsCarousel.swift in Sources */,

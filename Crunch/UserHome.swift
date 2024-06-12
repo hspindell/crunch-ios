@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserHome: View {
     @EnvironmentObject var appObject: AppObject
+    @EnvironmentObject var authObject: AuthStateObject
     
     @State var myEntries = [MyEntryOverview]()
     @State var showFindPool = false
@@ -147,8 +148,8 @@ struct UserHome: View {
                 // Want top to be black even if user pulls down on the scroll view
                 Rectangle()
                     .fill(Color.black)
-                    .frame(height: 1000)
-                    .offset(y: -800)
+                    .frame(height: 600)
+                    .offset(y: -400)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -165,20 +166,34 @@ struct UserHome: View {
                     Text("My Circles")
                         .font(.system(size: 28, weight: .semibold))
                         .padding(.top, 50)
-                    VStack {
+                    VStack(spacing: 15) {
                         ForEach(appObject.circles) { circle in
                             CircleCard(circle: circle)
+                                .onTapGesture {
+                                    selectedCircle = circle
+                                }
+                        }
+                        CircleCard()
                             .onTapGesture {
-                                selectedCircle = circle
+                                showCreateCircle = true
                             }
+                    }
+                    
+                    Spacer()
+                    
+                    // TODO why doesn't this get pushed all the way down?
+                    HStack {
+                        Text(appObject.userProfile.username)
+                        Spacer()
+                        Button("Sign out", role: .destructive) {
+                            Task { await authObject.signOut() }
                         }
                     }
                 }
                 .padding(30)
             }
         }
-
-        .background(Color.backgroundCream)
+        .background(StripeBG())
         .fullScreenCover(item: $selectedCircle, onDismiss: onPageAppear) { circle in
             CirclePage(circle: circle)
         }
@@ -192,7 +207,8 @@ struct UserHome: View {
             CreateCirclePage()
         }
         .fullScreenCover(isPresented: $showCreatePool, onDismiss: onPageAppear) {
-            CreatePoolPage(allowCircleChange: true)
+//            CreatePoolPage(allowCircleChange: true)
+            CreatePoolFlow()
         }
         .onChange(of: appObject.deepLinkPoolId) { oldValue, newValue in
             Task {

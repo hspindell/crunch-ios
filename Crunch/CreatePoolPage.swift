@@ -51,15 +51,15 @@ struct CreatePoolPage: View {
     @State var event: Event?
     @State var poolHostedByCircle = true
     
-    var poolCircle: CrCircle? {
+    private var poolCircle: CrCircle? {
         poolHostedByCircle ? circle : nil
     }
     
-    var circlesAsAdmin: [CrCircle] {
+    private var circlesAsAdmin: [CrCircle] {
         appObject.circles.filter({ $0.owner_id == appObject.userProfile.id })
     }
     
-    func fetchUpcomingEvents() async {
+    private func fetchUpcomingEvents() async {
         do {
             let result: [Event] = try await supabase
                 .from("events")
@@ -76,7 +76,7 @@ struct CreatePoolPage: View {
         }
     }
     
-    func defaultPoolTitle(circle: CrCircle?, event: Event?) -> String {
+    private func defaultPoolTitle(circle: CrCircle?, event: Event?) -> String {
         let owner = circle?.title ?? appObject.userProfile.username
         guard let event else {
             return "\(owner)'s Pool"

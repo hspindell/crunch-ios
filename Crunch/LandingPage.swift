@@ -23,6 +23,7 @@ struct LandingPage: View {
             Image("inflatable_crunch")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .background(Color.black)
             
             Divider()
                 .frame(height: 1)
@@ -49,7 +50,7 @@ struct LandingPage: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(.all)
-        .background(Color.backgroundCream)
+        .background(StripeBG())
         .task {
             // TODO splash screen while checking login status
             await authStateObject.resumeSessionIfPossible()

@@ -49,6 +49,15 @@ extension View {
         }
     }
     
+    func solidShadow(cornerRadius: CGFloat, offset: (CGFloat, CGFloat) = (3, 5)) -> some View {
+        ZStack {
+            Color.black
+                .cornerRadius(cornerRadius)
+                .offset(x: offset.0, y: offset.1)
+            self
+        }
+    }
+    
     func padding(top: CGFloat = 0, leading: CGFloat = 0, bottom: CGFloat = 0, trailing: CGFloat = 0) -> some View {
         self.padding(EdgeInsets(top: top, leading: leading, bottom: bottom, trailing: trailing))
     }

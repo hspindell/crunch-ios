@@ -14,13 +14,16 @@ struct PublicPoolsPage: View {
     @State var pools = [Pool]()
     @State var selectedPool: Pool?
     
-    func fetchAvailable() async {
+    private func fetchAvailable() async {
         do {
             let result: [Pool] = try await supabase
                 .from("pools")
-                .select()
+                .select("*, events!inner(*)")
                 .eq("is_public", value: true)
+                .greaterThanOrEquals("events.starts_at", value: Date().ISO8601Format())
+                .order("starts_at", ascending: true, referencedTable: "events")
                 .execute()
+                .debug()
               .value
             await MainActor.run {
                 pools = result
@@ -30,7 +33,7 @@ struct PublicPoolsPage: View {
         }
     }
     
-    func userHasJoined(pool: Pool) -> Bool {
+    private func userHasJoined(pool: Pool) -> Bool {
         existingPools.contains(where: { $0.id == pool.id })
     }
     
