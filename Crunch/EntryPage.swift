@@ -18,13 +18,34 @@ struct Golfer: Codable, Identifiable, Equatable {
     var avatarURL: URL? { avatar_url?.url }
     var country: String
     
+    static let flagCodeMapping = [
+        "ARG": "ar",
+        "AUS": "au",
+        "AUT": "at",
+        "BEL": "be",
+        "CAN": "ca",
+        "CHI": "cl",
+        "DEN": "dk",
+        "ENG": "gb-eng",
+        "ESP": "es",
+        "FIN": "fi",
+        "FRA": "fr",
+        "GER": "de",
+        "IRL": "ie",
+        "JPN": "jp",
+        "KOR": "kr",
+        "NIR": "gb-nir",
+        "NOR": "no",
+        "NZL": "nz",
+        "POL": "pl",
+        "RSA": "za",
+        "SCO": "gb-sct",
+        "SWE": "se",
+        "USA": "us",
+    ]
+    
     var flagCode: String? {
-        switch country {
-        case "USA":
-            return "us"
-        default:
-            return nil
-        }
+        Self.flagCodeMapping[country]
     }
 }
 

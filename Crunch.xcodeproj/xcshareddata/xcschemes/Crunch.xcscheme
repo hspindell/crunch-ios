@@ -18,7 +18,7 @@
                BlueprintIdentifier = "BA4A8D9B2BC8919C006ED4DC"
                BuildableName = "Crunch.app"
                BlueprintName = "Crunch"
-               ReferencedContainer = "container:crunch.xcodeproj">
+               ReferencedContainer = "container:Crunch.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "BA4A8D9B2BC8919C006ED4DC"
             BuildableName = "Crunch.app"
             BlueprintName = "Crunch"
-            ReferencedContainer = "container:crunch.xcodeproj">
+            ReferencedContainer = "container:Crunch.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "BA4A8D9B2BC8919C006ED4DC"
             BuildableName = "Crunch.app"
             BlueprintName = "Crunch"
-            ReferencedContainer = "container:crunch.xcodeproj">
+            ReferencedContainer = "container:Crunch.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

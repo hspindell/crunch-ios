@@ -24,6 +24,18 @@ struct EntryCreation: Encodable {
     var title: String
 }
 
+struct MyEntryOverview: Codable, Identifiable {
+    var title: String
+    var profile_id: UUID
+    var pool_id: UUID
+    var complete: Bool
+    var pool: Pool
+    
+    var id: String {
+        profile_id.uuidString + pool_id.uuidString
+    }
+}
+
 //protocol EntryProtocol: Codable, Identifiable {
 //    var profile_id: UUID { get }
 //    var pool_id: UUID { get }

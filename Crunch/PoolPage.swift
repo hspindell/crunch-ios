@@ -49,28 +49,32 @@ class GolfPoolObject: PoolObject {
     @Published var topGolfers = [Golfer]()
     @Published var golfersById = [String : Golfer]()
     
-    func fetchGolfers() async throws {
+    func fetchGolfers() async {
         // TODO cache?
-        let result: [Golfer] = try await supabase
-            .from("current_top_golfers")
-            .select()
-            .execute()
-          .value
-        
-        var idMap = [String: Golfer]()
-        result.forEach { g in
-            idMap[g.id.description] = g
-        }
-        await MainActor.run { [idMap] in
-            topGolfers = result
-            golfersById = idMap
+        do {
+            let result: [Golfer] = try await supabase
+                .from("current_top_golfers")
+                .select()
+                .execute()
+              .value
+            
+            var idMap = [String: Golfer]()
+            result.forEach { g in
+                idMap[g.id.description] = g
+            }
+            await MainActor.run { [idMap] in
+                topGolfers = result
+                golfersById = idMap
+            }
+        } catch {
+            print("fetchGolfers: \(error.localizedDescription)")
         }
     }
     
     override init() {
         super.init()
         Task {
-            try await fetchGolfers()
+            await fetchGolfers()
         }
     }
 }
@@ -143,29 +147,44 @@ struct PoolPage: View {
             Button("Back") {
                 dismiss()
             }
-            ZStack {
-                AsyncImage(url: poolObject.event?.coverImageURL) { result in
-                    result.image?
-                        .resizable()
-                        .scaledToFit()
-                }.frame(height: 200)
-                HStack {
-                    AsyncImage(url: poolObject.event?.logoURL) { result in
-                        result.image?
-                            .resizable()
-                            .scaledToFit()
-                    }.frame(height: 100)
-                    VStack {
-                        // TODO allow edit title if pool owner
+//            ZStack {
+////                AsyncImage(url: poolObject.event?.coverImageURL) { result in
+////                    result.image?
+////                        .resizable()
+////                        .scaledToFill()
+////                        .frame(height: 150)
+////                        .clipped()
+////                }
+////                Color.black.opacity(0.3)
+////                    .frame(height: 150)
+                VStack(alignment: .leading) {
+                    HStack {
                         Text(pool.title)
-                            .font(.title)
-                        Text("\(poolObject.event?.title ?? "Event ?") (\(pool.pool_type))")
-                            .font(.title3)
+                            .font(.title2)
+                        Spacer()
+                        Text(pool.pool_type)
+                            .font(.subheadline)
+                    }
+                    Text(poolObject.event?.title ?? "")
+                        .font(.subheadline)
+                    Spacer()
+                    HStack {
                         Text("\(poolObject.event?.starts_at.formatted(date: .abbreviated, time: .omitted) ?? "Start date TBD")")
                             .font(.title3)
+                        Spacer()
+                        AsyncImage(url: poolObject.event?.logoURL) { result in
+                            result.image?
+                                .resizable()
+                                .scaledToFit()
+                        }.frame(height: 75)
                     }
                 }
-            }
+                .frame(height: 150)
+//                .foregroundColor(.white)
+
+//            }
+            
+            
             if let event = poolObject.event, event.started == true {
                 Text("The event has started and entries have been locked.")
                 
@@ -206,7 +225,6 @@ struct PoolPage: View {
             }
             Spacer()
         }
-        .padding(30)
         .fullScreenCover(item: $showEntry, onDismiss: {
             Task { await fetchEntries() }
         }) { entry in
@@ -225,5 +243,5 @@ struct PoolPage: View {
 }
 
 #Preview {
-    PoolPage(pool: Pool(id: UUID(), created_at: Date(), admin_id: UUID(), event_id: UUID(), title: "Test Pool", pool_type: "golf-pick-six", is_public: false))
+    PoolPage(pool: Pool(id: UUID(), created_at: Date(), admin_id: UUID(), event_id: UUID(), title: "Test Pool", pool_type: "golf-pick-six", is_public: false, events: nil))
 }

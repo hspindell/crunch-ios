@@ -11,7 +11,11 @@ struct ProfileCreation {
     var username: String
 }
 
-struct Profile: Codable, Equatable {
+struct Profile: Codable, Equatable, Identifiable {
     var id: UUID
     var username: String
+}
+
+extension Profile {
+    static let sample = Profile(id: UUID(), username: "previewuser")
 }

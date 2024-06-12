@@ -14,45 +14,9 @@ import PostgREST
 // TODO: map between snake case and camel somehow?
 // TODO: decide how to treat models when they have different properties depending on query context e.g. profile along w entry
 
-struct Circle: Codable, Identifiable, Equatable {
-    var id: UUID
-    var created_at: Date
-    var title: String
-    var owner_id: UUID
-}
-
-struct CircleCreate: Codable {
-    var title: String
-}
-
-struct MyEntryOverview: Codable, Identifiable {
-    var title: String
-    var profile_id: UUID
-    var pool_id: UUID
-    var complete: Bool
-    var pool: Pool
-    
-    var id: String {
-        profile_id.uuidString + pool_id.uuidString
-    }
-}
-
-extension PostgrestResponse {
-    func debug() -> Self {
-        if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
-            print(json)
-        } else if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String : Any]] {
-            print(json)
-        } else {
-            print("Unable to parse response")
-        }
-        return self
-    }
-}
-
 struct Home: View {
+    @EnvironmentObject var authObject: AuthStateObject
     @EnvironmentObject var appObject: AppObject
-    @Binding var authenticatedUser: Profile?
     
     @State var myEntries = [MyEntryOverview]()
     
@@ -61,7 +25,7 @@ struct Home: View {
     @State var selectedPool: Pool?
     
     @State var showCreateCircle = false
-    @State var selectedCircle: Circle?
+    @State var selectedCircle: CrCircle?
     
     private func dismissAllModals() {
         showFindPool = false
@@ -71,7 +35,7 @@ struct Home: View {
         selectedPool = nil
     }
     
-    private func fetchCircle(id: String) async -> Circle? {
+    private func fetchCircle(id: String) async -> CrCircle? {
         do {
             return try await supabase
                 .from("circles")
@@ -103,7 +67,7 @@ struct Home: View {
     
     private func fetchCircles() async {
         do {
-            let result: [Circle] = try await supabase
+            let result: [CrCircle] = try await supabase
                 .from("circles")
                 .select(
                   """
@@ -151,11 +115,46 @@ struct Home: View {
         }
     }
     
+    @discardableResult private func consumePoolLink(id: String) async -> Bool {
+        if let pool = await fetchPool(id: id) {
+            await MainActor.run {
+                dismissAllModals()
+                selectedPool = pool
+                appObject.clearDeepLinks()
+            }
+            return true
+        }
+        return false
+    }
+    
+    @discardableResult private func consumeCircleLink(id: String) async -> Bool {
+        if let circle = await fetchCircle(id: id) {
+            await MainActor.run {
+                dismissAllModals()
+                selectedCircle = circle
+                appObject.clearDeepLinks()
+            }
+            return true
+        }
+        return false
+    }
+    
+    private func consumeDeepLinkIfAvailable() async {
+        if let poolId = appObject.deepLinkPoolId, await consumePoolLink(id: poolId) {
+            return
+        }
+        if let circleId = appObject.deepLinkCircleId, await consumeCircleLink(id: circleId) {
+            return
+        }
+    }
+    
     var body: some View {
+
         VStack(alignment: .leading) {
             HStack {
-                Text("My Pool Entries")
+                Text("My Pools")
                     .font(.title2)
+                    .fontWeight(.bold)
                 Spacer()
                 Button("Find pool") {
                     showFindPool = true
@@ -200,21 +199,14 @@ struct Home: View {
                 Text(appObject.userProfile.username)
                 Spacer()
                 Button("Sign out", role: .destructive) {
-                    Task {
-                        do {
-                            try await supabase.auth.signOut()
-                            
-                            await MainActor.run {
-                                authenticatedUser = nil
-                            }
-                        } catch {
-                            print("Sign out: \(error.localizedDescription)")
-                        }
-                    }
+                    Task { await authObject.signOut() }
                 }
             }
         }
         .padding(30)
+        .ignoresSafeArea()
+        .background(Color.black)
+        .foregroundStyle(Color.white)
         .fullScreenCover(item: $selectedCircle, onDismiss: onPageAppear) { circle in
             CirclePage(circle: circle)
         }
@@ -232,31 +224,26 @@ struct Home: View {
         }
         .onChange(of: appObject.deepLinkPoolId) { oldValue, newValue in
             Task {
-                if let newValue, let pool = await fetchPool(id: newValue) {
-                    await MainActor.run {
-                        dismissAllModals()
-                        selectedPool = pool
-                        appObject.deepLinkPoolId = nil
-                    }
+                if let newValue {
+                    await consumePoolLink(id: newValue)
                 }
             }
         }
         .onChange(of: appObject.deepLinkCircleId) { oldValue, newValue in
             Task {
-                if let newValue, let circle = await fetchCircle(id: newValue) {
-                    await MainActor.run {
-                        dismissAllModals()
-                        selectedCircle = circle
-                        appObject.deepLinkCircleId = nil
-                    }
+                if let newValue {
+                    await consumeCircleLink(id: newValue)
                 }
             }
         }
-        .onAppear(perform: onPageAppear)
+        .onAppear {
+            onPageAppear()
+            Task { await consumeDeepLinkIfAvailable() }
+        }
     }
 }
 
 #Preview {
-    Home(authenticatedUser: .constant(Profile(id: UUID(), username: "user")))
-        .environmentObject(AppObject(userProfile: Profile(id: UUID(), username: "banana")))
+    Home()
+        .environmentObject(AppObject(userProfile: Profile.sample))
 }

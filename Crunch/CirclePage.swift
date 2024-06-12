@@ -10,7 +10,7 @@ import SwiftUI
 struct CirclePage: View {
     @EnvironmentObject var appObject: AppObject
     @Environment(\.dismiss) var dismiss
-    var circle: Circle
+    var circle: CrCircle
     @State var members = [Profile]()
     @State var pools = [Pool]()
     @State var entries = [Entry]()
@@ -155,5 +155,5 @@ struct CirclePage: View {
 }
 
 #Preview {
-    CirclePage(circle: Circle(id: UUID(), created_at: Date(), title: "My Circle", owner_id: UUID()))
+    CirclePage(circle: CrCircle(id: UUID(), created_at: Date(), title: "My Circle", owner_id: UUID()))
 }

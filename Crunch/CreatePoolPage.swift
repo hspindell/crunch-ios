@@ -18,6 +18,9 @@ struct Pool: Codable, Identifiable {
     var pool_type: String
     var is_public: Bool
     
+    var events: Event?
+    var event: Event? { events }
+    
     var poolType: PoolType? {
         PoolType(rawValue: pool_type)
     }
@@ -40,7 +43,7 @@ struct CreatePoolPage: View {
     @Environment(\.dismiss) var dismiss
     var allowCircleChange = false
     
-    @State var circle: Circle?
+    @State var circle: CrCircle?
     @State var events = [Event]()
     @State var poolName = ""
     @State var details = ""
@@ -48,11 +51,11 @@ struct CreatePoolPage: View {
     @State var event: Event?
     @State var poolHostedByCircle = true
     
-    var poolCircle: Circle? {
+    var poolCircle: CrCircle? {
         poolHostedByCircle ? circle : nil
     }
     
-    var circlesAsAdmin: [Circle] {
+    var circlesAsAdmin: [CrCircle] {
         appObject.circles.filter({ $0.owner_id == appObject.userProfile.id })
     }
     
@@ -61,6 +64,8 @@ struct CreatePoolPage: View {
             let result: [Event] = try await supabase
                 .from("events")
                 .select()
+                .greaterThanOrEquals("starts_at", value: Date().ISO8601Format())
+                .order("starts_at", ascending: true)
                 .execute()
               .value
             await MainActor.run {
@@ -71,7 +76,7 @@ struct CreatePoolPage: View {
         }
     }
     
-    func defaultPoolTitle(circle: Circle?, event: Event?) -> String {
+    func defaultPoolTitle(circle: CrCircle?, event: Event?) -> String {
         let owner = circle?.title ?? appObject.userProfile.username
         guard let event else {
             return "\(owner)'s Pool"
@@ -79,7 +84,7 @@ struct CreatePoolPage: View {
         return "\(owner)'s \(event.title) Pool"
     }
     
-    init(allowCircleChange: Bool = false, circle: Circle? = nil) {
+    init(allowCircleChange: Bool = false, circle: CrCircle? = nil) {
         self.allowCircleChange = allowCircleChange
         self._circle = State(initialValue: circle)
     }
@@ -93,11 +98,16 @@ struct CreatePoolPage: View {
             Text("Create Pool")
                 .font(.title)
             
+            Divider()
+            
+            Toggle("Pool is hosted by circle", isOn: circlesAsAdmin.isEmpty ? .constant(false) : $poolHostedByCircle)
+                .disabled(circlesAsAdmin.isEmpty)
+            
+            Divider()
+            
             if allowCircleChange {
                 Text("Choose a circle")
                     .font(.title3)
-                Toggle("Pool is hosted by circle", isOn: circlesAsAdmin.isEmpty ? .constant(false) : $poolHostedByCircle)
-                    .disabled(circlesAsAdmin.isEmpty)
                 
                 if poolHostedByCircle {
                     if circlesAsAdmin.isEmpty {
@@ -114,18 +124,22 @@ struct CreatePoolPage: View {
                 }
             }
             
-            Spacer()
+            Divider()
             
             Text("Choose an event")
                 .font(.title3)
             List(events) { e in
-                Text(e.title)
-                    .fontWeight(e.id == event?.id ? .bold : .regular)
-                    .onTapGesture {
-                        event = e
-                    }
+                HStack {
+                    Text(e.title)
+                        .fontWeight(e.id == event?.id ? .bold : .regular)
+                    Spacer()
+                    Text(e.starts_at.formatted(date: .abbreviated, time: .omitted))
+                        .font(.footnote)
+                }.onTapGesture {
+                    event = e
+                }
             }
-            Spacer()
+            Divider()
             
             // give pool a name (default: Circle name + event name)
             Text("Pool name")
@@ -133,13 +147,15 @@ struct CreatePoolPage: View {
             TextField("Pool name", text: $poolName)
                 .textFieldStyle(.roundedBorder)
             
-            // TODO circle selection if not already coming from a circle page
+            Divider()
             
             // description/payout structure (optional)
             Text("Pool details (buy-in, payout structure, etc)")
                 .font(.title3)
             TextField("Details", text: $details)
                 .textFieldStyle(.roundedBorder)
+            
+            Divider()
             
             // public/private (private = invite only, members of the circle automatically invited)
             Toggle(isOn: $isPublic) {
@@ -153,15 +169,12 @@ struct CreatePoolPage: View {
                     .font(.caption)
             }
             
-            // OPTIONAL select circle this pool is hosted by (amongst ones user is admin for)
-            // depending on if this page was opened in context of a circle already
-            
             // TODO option to invite more people from other circles you are part of, + generic link
             //            Text("All members of (circle) will be invited automatically. Optionally invite other people you know from the list below or use the following link.")
             //                .font(.footnote)
             
             
-            Spacer()
+            Divider()
             
             HStack {
                 Spacer()
