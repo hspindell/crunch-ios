@@ -9,13 +9,14 @@ import SwiftUI
 
 struct CircleCard: View {
     var circle: CrCircle?
+    var selected = false
     private let height: CGFloat = 80
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(circle?.title ?? "New circle")
-                    .font(.system(size: 14))
+                    .font(.system(size: 14, weight: selected ? .bold : .regular))
                 Spacer()
                 if circle.isNil {
                     Text("+")
@@ -28,7 +29,7 @@ struct CircleCard: View {
         }
         .padding(h: 15)
         .frame(height: height)
-        .background(Color.backgroundCream)
+        .background(selected ? Color.white : Color.backgroundCream)
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
@@ -40,6 +41,8 @@ struct CircleCard: View {
 }
 
 #Preview {
-    CircleCard(circle: CrCircle(id: .init(), created_at: Date(), title: "Circle XYZ", owner_id: .init()))
-        .frame(width: 300)
+    VStack {
+        CircleCard(circle: CrCircle(id: .init(), created_at: Date(), title: "Circle XYZ", owner_id: .init()))
+        CircleCard(circle: CrCircle(id: .init(), created_at: Date(), title: "Circle XYZ", owner_id: .init()), selected: true)
+    }.frame(width: 300)
 }

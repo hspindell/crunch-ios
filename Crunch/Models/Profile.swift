@@ -17,5 +17,9 @@ struct Profile: Codable, Equatable, Identifiable {
 }
 
 extension Profile {
-    static let sample = Profile(id: UUID(), username: "previewuser")
+    static let sample = Profile(id: UUID(uuidString: "ABCC5472-7A84-4ABC-9CA8-6CDFB34D5CE8")!, username: "hspindell")
+}
+
+extension AppObject {
+    static let sample = AppObject(userProfile: Profile.sample)
 }

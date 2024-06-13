@@ -245,5 +245,5 @@ struct Home: View {
 
 #Preview {
     Home()
-        .environmentObject(AppObject(userProfile: Profile.sample))
+        .environmentObject(AppObject.sample)
 }

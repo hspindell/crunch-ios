@@ -180,20 +180,23 @@ struct UserHome: View {
                     }
                     
                     Spacer()
-                    
-                    // TODO why doesn't this get pushed all the way down?
-                    HStack {
-                        Text(appObject.userProfile.username)
-                        Spacer()
-                        Button("Sign out", role: .destructive) {
-                            Task { await authObject.signOut() }
-                        }
-                    }
+
                 }
-                .padding(30)
+                .padding(15)
             }
         }
         .background(StripeBG())
+        .overlay(alignment: .bottom) {
+            HStack {
+                Text(appObject.userProfile.username)
+                Spacer()
+                Button("Sign out", role: .destructive) {
+                    Task { await authObject.signOut() }
+                }
+            }
+            .font(.system(size: 12))
+            .padding(h: 15)
+        }
         .fullScreenCover(item: $selectedCircle, onDismiss: onPageAppear) { circle in
             CirclePage(circle: circle)
         }
@@ -236,5 +239,5 @@ struct UserHome: View {
 
 #Preview {
     UserHome()
-        .environmentObject(AppObject(userProfile: Profile.sample))
+        .environmentObject(AppObject.sample)
 }

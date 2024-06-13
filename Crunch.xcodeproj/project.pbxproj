@@ -76,6 +76,11 @@
 		BAF215BA2C1A41CB00DF85B2 /* Stripes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215B92C1A41CB00DF85B2 /* Stripes.swift */; };
 		BAF215BC2C1A440100DF85B2 /* StripeBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215BB2C1A440100DF85B2 /* StripeBG.swift */; };
 		BAF215BE2C1A52D600DF85B2 /* CreatePoolFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */; };
+		BAF215C12C1A6C0E00DF85B2 /* CreatePoolChooseCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C02C1A6C0E00DF85B2 /* CreatePoolChooseCircle.swift */; };
+		BAF215C32C1A6C4600DF85B2 /* CreatePoolChooseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C22C1A6C4600DF85B2 /* CreatePoolChooseEvent.swift */; };
+		BAF215C52C1A73EA00DF85B2 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C42C1A73EA00DF85B2 /* EventCard.swift */; };
+		BAF215C72C1B981400DF85B2 /* MaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C62C1B981400DF85B2 /* MaskTest.swift */; };
+		BAF215C92C1BA37500DF85B2 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C82C1BA37500DF85B2 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +122,11 @@
 		BAF215B92C1A41CB00DF85B2 /* Stripes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stripes.swift; sourceTree = "<group>"; };
 		BAF215BB2C1A440100DF85B2 /* StripeBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeBG.swift; sourceTree = "<group>"; };
 		BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePoolFlow.swift; sourceTree = "<group>"; };
+		BAF215C02C1A6C0E00DF85B2 /* CreatePoolChooseCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePoolChooseCircle.swift; sourceTree = "<group>"; };
+		BAF215C22C1A6C4600DF85B2 /* CreatePoolChooseEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePoolChooseEvent.swift; sourceTree = "<group>"; };
+		BAF215C42C1A73EA00DF85B2 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
+		BAF215C62C1B981400DF85B2 /* MaskTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTest.swift; sourceTree = "<group>"; };
+		BAF215C82C1BA37500DF85B2 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +192,7 @@
 		BA4A8D9E2BC8919C006ED4DC /* Crunch */ = {
 			isa = PBXGroup;
 			children = (
+				BAF215BF2C1A6BFF00DF85B2 /* CreatePoolFlow */,
 				BA2C26AF2BFF131F00C65AEB /* Info.plist */,
 				BA58E00E2BF6B1C000962E2E /* Models */,
 				BA4A8DAF2BC9AD45006ED4DC /* GoogleService-Info.plist */,
@@ -215,7 +226,8 @@
 				BAF215B72C1A3B2E00DF85B2 /* CircleCard.swift */,
 				BAF215B92C1A41CB00DF85B2 /* Stripes.swift */,
 				BAF215BB2C1A440100DF85B2 /* StripeBG.swift */,
-				BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */,
+				BAF215C42C1A73EA00DF85B2 /* EventCard.swift */,
+				BAF215C62C1B981400DF85B2 /* MaskTest.swift */,
 			);
 			path = Crunch;
 			sourceTree = "<group>";
@@ -235,8 +247,19 @@
 				BA58E0112BF6B38C00962E2E /* Profile.swift */,
 				BA58E0132BF6BCE600962E2E /* JSON.swift */,
 				BA7F9CB02C0122D80044E4DD /* CrCircle.swift */,
+				BAF215C82C1BA37500DF85B2 /* Event.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BAF215BF2C1A6BFF00DF85B2 /* CreatePoolFlow */ = {
+			isa = PBXGroup;
+			children = (
+				BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */,
+				BAF215C02C1A6C0E00DF85B2 /* CreatePoolChooseCircle.swift */,
+				BAF215C22C1A6C4600DF85B2 /* CreatePoolChooseEvent.swift */,
+			);
+			path = CreatePoolFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,9 +374,11 @@
 			files = (
 				BAF215B62C1A3A0700DF85B2 /* EntriesList.swift in Sources */,
 				BAE1C1EC2BEAD59900183C8A /* CreatePoolPage.swift in Sources */,
+				BAF215C12C1A6C0E00DF85B2 /* CreatePoolChooseCircle.swift in Sources */,
 				BA58E0142BF6BCE600962E2E /* JSON.swift in Sources */,
 				BA7F9CB32C0129470044E4DD /* AppObject.swift in Sources */,
 				BA58E0182BFD5E9F00962E2E /* GolfPoolLeaderboard.swift in Sources */,
+				BAF215C92C1BA37500DF85B2 /* Event.swift in Sources */,
 				BA7F9CAB2C0117990044E4DD /* SignInForm.swift in Sources */,
 				BAF215BE2C1A52D600DF85B2 /* CreatePoolFlow.swift in Sources */,
 				BA58E0122BF6B38C00962E2E /* Profile.swift in Sources */,
@@ -370,9 +395,11 @@
 				BAE1C1EA2BEACF8600183C8A /* CirclePage.swift in Sources */,
 				BA7F9CA92C006E8F0044E4DD /* CrunchButtonStyle.swift in Sources */,
 				BADEA7D52C05BA9700B99993 /* ShadowBox.swift in Sources */,
+				BAF215C72C1B981400DF85B2 /* MaskTest.swift in Sources */,
 				BA4A8DA42BC8919C006ED4DC /* Item.swift in Sources */,
 				BA7F9CB52C012E2C0044E4DD /* UserHome.swift in Sources */,
 				BA58E0102BF6B1CB00962E2E /* Entry.swift in Sources */,
+				BAF215C32C1A6C4600DF85B2 /* CreatePoolChooseEvent.swift in Sources */,
 				BAE1C1DB2BD18E6E00183C8A /* Home.swift in Sources */,
 				BAF215B82C1A3B2E00DF85B2 /* CircleCard.swift in Sources */,
 				BA58E00B2BF56CAF00962E2E /* EntryPage.swift in Sources */,
@@ -381,6 +408,7 @@
 				BA7F9CB12C0122D80044E4DD /* CrCircle.swift in Sources */,
 				BA7F9CB72C05A9270044E4DD /* MyPoolsCarousel.swift in Sources */,
 				BA4A8DA02BC8919C006ED4DC /* CrunchApp.swift in Sources */,
+				BAF215C52C1A73EA00DF85B2 /* EventCard.swift in Sources */,
 				BA58E0162BF6CBBA00962E2E /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

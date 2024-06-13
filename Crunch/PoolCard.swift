@@ -46,5 +46,8 @@ struct PoolCard: View {
 }
 
 #Preview {
-    PoolCard()
+    ZStack {
+        Color.blue
+        PoolCard()
+    }
 }

@@ -24,15 +24,18 @@ struct EntriesList: View {
             HStack(spacing: 15) {
                 ForEach(Array(entries.enumerated()), id: \.offset) { index, entry in
                     PoolCard(entry: entry, backgroundColor: cardColor(forIndex: index))
+                        .padding(top: 1) // TODO hack to fix offset clipping for now (something to do with padding)
                         .onTapGesture {
                             selectedPool = entry.pool
                         }
                 }
                 PoolCard(title: "Join Pool", backgroundColor: .crunchOrange)
+                    .padding(top: 1)
                     .onTapGesture {
                         showFindPool = true
                     }
                 PoolCard(title: "Start Pool", backgroundColor: .crunchGreen)
+                    .padding(top: 1)
                     .onTapGesture {
                         showCreatePool = true
                     }
