@@ -32,20 +32,20 @@ struct CreatePoolChooseEvent: View {
     
     var body: some View {
         CreatePoolStepBody(title: "Select an event") {
-            ScrollView {
-                VStack(spacing: 15) {
+            ScrollView(showsIndicators: false) {
+                LazyVStack(spacing: 15) {
                     ForEach(events) { event in
                         EventCard(event: event, selected: selectedEvent == event)
                         .padding(h: 5)
                         .onTapGesture {
                             selectedEvent = event
-                        }   
+                        }
                     }
-                }
+                }.padding(v: 15)
             }
             
             Button("Continue") {
-//                manager.slideTo(step: .event)
+                manager.slideTo(step: .details)
             }
             .buttonStyle(CrunchButtonStyle(flow: true))
             .disabled(selectedEvent.isNil)

@@ -15,17 +15,23 @@ struct EventCard: View {
     
     var body: some View {
         ZStack(alignment: .trailing) {
-            AsyncImage(url: event.coverImageURL) { result in
-                result.image?
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: height)
-                    .clipped()
-            }
+            // TODO - this background image messes up selection from the list
             
-            if selected == false {
-                Color.backgroundCream.opacity(0.7)
-            }
+//            GeometryReader { geo in
+//                AsyncImage(url: event.coverImageURL) { result in
+//                    result.image?
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: geo.size.width, height: geo.size.height)
+//                }
+//                .frame(width: geo.size.width, height: geo.size.height)
+//                .fixedSize()
+//            }
+
+            
+//            if selected == false {
+//                Color.backgroundCream.opacity(0.7)
+//            }
             
             HStack {
                 VStack(alignment: .leading, spacing: 0) {
@@ -39,7 +45,6 @@ struct EventCard: View {
                     Text(event.starts_at.formatted(.dateTime.month().day()))
                         .font(.system(size: 12))
                         .foregroundStyle(selected ? Color.white : Color.black)
-
                     Spacer()
                 }
                 
@@ -48,6 +53,7 @@ struct EventCard: View {
                     result.image?
                         .resizable()
                         .scaledToFit()
+                        .frame(width: height * 0.75, height: height * 0.75)
                         .clipShape(RoundedRectangle(cornerRadius: 6))
                         .overlay(
                             RoundedRectangle(cornerRadius: 6)
@@ -58,6 +64,7 @@ struct EventCard: View {
             .padding(15)
         }
         .frame(height: height)
+        .background(selected ? Color(red: 0.25, green: 0.25, blue: 0.25) : Color.backgroundCream)
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)

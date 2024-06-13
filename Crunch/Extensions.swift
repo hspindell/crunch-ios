@@ -36,9 +36,25 @@ extension String {
     var url: URL? {
         return URL(string: self)
     }
+    
+    var isPresent: Bool {
+        !isEmpty
+    }
 }
 
 extension View {
+    func labeled(_ label: String, labelSpacing: CGFloat = 6, font: Font = .system(size: 14), color: Color = .black) -> some View {
+        VStack(alignment: .leading, spacing: labelSpacing) {
+            if label.isPresent {
+                Text(label)
+                    .font(font)
+                    .foregroundColor(color)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            self
+        }
+    }
+    
     func solidShadow(size: CGSize, cornerRadius: CGFloat, offset: (CGFloat, CGFloat) = (3, 5)) -> some View {
         ZStack {
             Color.black

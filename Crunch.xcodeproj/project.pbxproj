@@ -81,6 +81,7 @@
 		BAF215C52C1A73EA00DF85B2 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C42C1A73EA00DF85B2 /* EventCard.swift */; };
 		BAF215C72C1B981400DF85B2 /* MaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C62C1B981400DF85B2 /* MaskTest.swift */; };
 		BAF215C92C1BA37500DF85B2 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215C82C1BA37500DF85B2 /* Event.swift */; };
+		BAF215CB2C1BB00F00DF85B2 /* CreatePoolDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215CA2C1BB00F00DF85B2 /* CreatePoolDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +128,7 @@
 		BAF215C42C1A73EA00DF85B2 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
 		BAF215C62C1B981400DF85B2 /* MaskTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTest.swift; sourceTree = "<group>"; };
 		BAF215C82C1BA37500DF85B2 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		BAF215CA2C1BB00F00DF85B2 /* CreatePoolDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePoolDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 				BAF215BD2C1A52D600DF85B2 /* CreatePoolFlow.swift */,
 				BAF215C02C1A6C0E00DF85B2 /* CreatePoolChooseCircle.swift */,
 				BAF215C22C1A6C4600DF85B2 /* CreatePoolChooseEvent.swift */,
+				BAF215CA2C1BB00F00DF85B2 /* CreatePoolDetails.swift */,
 			);
 			path = CreatePoolFlow;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				BA7F9CB72C05A9270044E4DD /* MyPoolsCarousel.swift in Sources */,
 				BA4A8DA02BC8919C006ED4DC /* CrunchApp.swift in Sources */,
 				BAF215C52C1A73EA00DF85B2 /* EventCard.swift in Sources */,
+				BAF215CB2C1BB00F00DF85B2 /* CreatePoolDetails.swift in Sources */,
 				BA58E0162BF6CBBA00962E2E /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

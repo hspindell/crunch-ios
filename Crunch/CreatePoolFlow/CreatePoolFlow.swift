@@ -9,7 +9,7 @@ import SwiftUI
 
 final class CreateCircleManager: ObservableObject {
     enum Step {
-        case circle, event
+        case circle, event, details
     }
     @Published var navigatingForward = true
     @Published var step = Step.circle
@@ -21,6 +21,9 @@ final class CreateCircleManager: ObservableObject {
         }
     }
     
+    func goBack() {
+        slideTo(step: step == .event ? .circle : .event, forward: false)
+    }
 
 }
 
@@ -35,7 +38,7 @@ struct CreatePoolFlow: View {
             HStack {
                 if manager.step != .circle {
                     Button("< Back") {
-                        manager.slideTo(step: .circle, forward: false)
+                        manager.goBack()
                     }
                 }
                 Spacer()
@@ -49,6 +52,8 @@ struct CreatePoolFlow: View {
                     CreatePoolChooseCircle()
                 } else if step == .event {
                     CreatePoolChooseEvent()
+                } else if step == .details {
+                    CreatePoolDetails()
                 }
             }
             .transition(AnyTransition.asymmetric(
@@ -66,6 +71,7 @@ struct CreatePoolFlow: View {
 struct CreatePoolStepBody<Content: View>: View {
     var title: String
     var subtitle: String?
+    var hPadding: CGFloat = 15
     
     @ViewBuilder var content: Content
 
@@ -79,10 +85,11 @@ struct CreatePoolStepBody<Content: View>: View {
                         .font(.subheadline)
                 }
             }
-            content
-                .padding(top: 30)
-
-        }.padding(h: 15)
+            VStack(spacing: 0) {
+                Divider()
+                content
+            }
+        }.padding(h: hPadding)
     }
 }
 

@@ -16,7 +16,8 @@ struct CircleCard: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(circle?.title ?? "New circle")
-                    .font(.system(size: 14, weight: selected ? .bold : .regular))
+                    .font(.system(size: 14, weight: .semibold))
+                    .background(Color.crunchYellow.mask{ Highlighter() }.opacity(selected ? 1 : 0))
                 Spacer()
                 if circle.isNil {
                     Text("+")
@@ -25,11 +26,11 @@ struct CircleCard: View {
 
             Text(circle?.owner?.username ?? "Invite friends to your pools automatically")
                 .font(.system(size: 14))
-                .foregroundStyle(Color.gray)
+                .foregroundStyle(selected ? Color.white : Color.gray)
         }
         .padding(h: 15)
         .frame(height: height)
-        .background(selected ? Color.white : Color.backgroundCream)
+        .background(selected ? Color(red: 0.25, green: 0.25, blue: 0.25) : Color.backgroundCream)
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)

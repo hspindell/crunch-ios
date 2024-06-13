@@ -18,23 +18,28 @@ struct CreatePoolChooseCircle: View {
     
     var body: some View {
         CreatePoolStepBody(title: "Select a circle", subtitle: "All members of the chosen circle will automatically be invited to participate in this pool. You may only choose a circle for which you are an admin.") {
-            VStack(spacing: 10) {
-                ForEach(circlesAsAdmin) { c in
-                    CircleCard(circle: c, selected: selectedCircle == c)
-                        .onTapGesture {
-                            if selectedCircle == c {
-                                selectedCircle = nil
-                            } else {
-                                selectedCircle = c
+            ScrollView(showsIndicators: false) {
+                LazyVStack(spacing: 10) {
+                    ForEach(circlesAsAdmin) { c in
+                        CircleCard(circle: c, selected: selectedCircle == c)
+                            .padding(h: 5)
+                            .onTapGesture {
+                                if selectedCircle == c {
+                                    selectedCircle = nil
+                                } else {
+                                    selectedCircle = c
+                                }
                             }
-                        }
-                }
+                    }
 
-                CircleCard().onTapGesture {
-//                        showCreateCircle = true
-                }
+                    CircleCard()
+                        .padding(h: 5)
+                        .onTapGesture {
+    //                        showCreateCircle = true
+                    }
+                }.padding(v: 15)
             }
-
+            
             Spacer()
             
             Button(selectedCircle.hasValue ? "Continue" : "Skip") {
