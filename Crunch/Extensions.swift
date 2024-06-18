@@ -47,6 +47,13 @@ extension String {
     }
 }
 
+extension Array {
+    var presence: Array? {
+        if isEmpty { return nil }
+        return self
+    }
+}
+
 extension View {
     func labeled(_ label: String, labelSpacing: CGFloat = 6, font: Font = .system(size: 14), color: Color = .black) -> some View {
         VStack(alignment: .leading, spacing: labelSpacing) {

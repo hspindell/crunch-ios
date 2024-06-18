@@ -16,9 +16,10 @@ struct StripeBG: View {
 }
 
 struct StripeBGDark: View {
+    var reverse = false
     var body: some View {
         Stripes(config: StripesConfig(background: Color.black,
-                                      foreground: Color.gray.opacity(0.4), degrees: -45, barWidth: 20, barSpacing: 20))
+                                      foreground: Color.gray.opacity(0.4), degrees: reverse ? 45 : -45, barWidth: 20, barSpacing: 20))
         .edgesIgnoringSafeArea(.all)
     }
 }

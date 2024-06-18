@@ -19,3 +19,7 @@ struct CrCircle: Codable, Identifiable, Equatable {
 struct CircleCreate: Codable {
     var title: String
 }
+
+extension CrCircle {
+    static let sample = CrCircle(id: UUID(), created_at: Date(), title: "My Circle", owner_id: UUID())
+}

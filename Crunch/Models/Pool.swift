@@ -39,5 +39,5 @@ struct PoolCreate: Codable {
 }
 
 extension Pool {
-    static let sample = Pool(id: UUID(), created_at: Date(), admin_id: UUID(), event_id: Event.sample.id, title: "Banana Pool", pool_type: PoolType.golfPickSix.rawValue, is_public: true)
+    static let sample = Pool(id: UUID(), created_at: Date(), admin_id: UUID(), event_id: Event.sample.id, title: "Banana Pool", pool_type: PoolType.golfPickSix.rawValue, is_public: true, events: Event.sample)
 }

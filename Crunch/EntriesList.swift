@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct EntriesList: View {
-    var entries: [MyEntryOverview]
+    var pools: [Pool]
+    var includePublicCard = false
+    var includeCreateCard = false
     @Binding var selectedPool: Pool?
     @Binding var showFindPool: Bool
     @Binding var showCreatePool: Bool
@@ -22,27 +24,31 @@ struct EntriesList: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(Array(entries.enumerated()), id: \.offset) { index, entry in
-                    PoolCard(entry: entry, backgroundColor: cardColor(forIndex: index))
+                ForEach(Array(pools.enumerated()), id: \.offset) { index, pool in
+                    PoolCard(pool: pool, backgroundColor: cardColor(forIndex: index))
                         .padding(top: 1) // TODO hack to fix offset clipping for now (something to do with padding)
                         .onTapGesture {
-                            selectedPool = entry.pool
+                            selectedPool = pool
                         }
                 }
-                PoolCard(title: "Join Pool", backgroundColor: .crunchOrange)
-                    .padding(top: 1)
-                    .onTapGesture {
-                        showFindPool = true
-                    }
-                PoolCard(title: "Start Pool", backgroundColor: .crunchGreen)
-                    .padding(top: 1)
-                    .onTapGesture {
-                        showCreatePool = true
-                    }
+                if includePublicCard {
+                    PoolCard(title: "Join Pool", backgroundColor: .crunchOrange)
+                        .padding(top: 1)
+                        .onTapGesture {
+                            showFindPool = true
+                        }
+                }
+
+                if includeCreateCard {
+                    PoolCard(title: "Start Pool", backgroundColor: .crunchGreen)
+                        .padding(top: 1)
+                        .onTapGesture {
+                            showCreatePool = true
+                        }
+                }
             }
             .padding(leading: 30, bottom: 7, trailing: 30)
         }
-        .padding(h: -30)
     }
 }
 

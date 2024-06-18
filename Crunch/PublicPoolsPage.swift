@@ -14,6 +14,12 @@ struct PublicPoolsPage: View {
     @State var pools = [Pool]()
     @State var selectedPool: Pool?
     
+    private let cardColors: [Color] = [.crunchYellow, .crunchCyan, .crunchPurple]
+    
+    private func cardColor(forIndex index: Int) -> Color {
+        cardColors[index % cardColors.count]
+    }
+    
     private func fetchAvailable() async {
         do {
             let result: [Pool] = try await supabase
@@ -37,23 +43,40 @@ struct PublicPoolsPage: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Button("Back") {
-                dismiss()
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text("Join a public pool")
+                    .font(.system(size: 20, weight: .semibold))
+                    .padding(h: 15, v: 2)
+                    .leadingHighlight(Color.white)
+                    
+                Spacer()
+                CloseButton()
+            }.padding(leading: -15)
+
+            Divider()
+                .padding(top: 10)
+            
+            ScrollView {
+                VStack(spacing: 10) {
+                    if let unjoinedPools = pools.filter({ !userHasJoined(pool: $0) }).presence {
+                        ForEach(Array(unjoinedPools.enumerated()), id: \.0) { idx, p  in
+                            PublicPoolListItem(pool: p, cardColor: cardColor(forIndex: idx))
+                            .onTapGesture {
+                                selectedPool = p
+                            }
+                        }
+                    } else {
+                        Text("No joinable pools found.")
+                    }
+                }.padding(v: 15)
             }
-            Text("Public Pools")
-                .font(.title)
-            List(pools.filter({ !userHasJoined(pool: $0) }), id: \.title) { p in
-                Text(p.title).onTapGesture {
-                    selectedPool = p
-                }
-            }
-            Spacer()
         }
         .fullScreenCover(item: $selectedPool) { pool in
             PoolPage(pool: pool)
         }
-        .padding(30)
+        .padding(15)
+        .background(StripeBG())
         .task {
             await fetchAvailable()
         }

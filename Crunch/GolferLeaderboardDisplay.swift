@@ -10,7 +10,7 @@ import SwiftUI
 struct GolferLeaderboardDisplay: View {
     var golfer: Golfer?
     var scoreDisplay: String
-    var nametag = true
+    var leaderboard = true
     var selected = false
     
     private var fontColor: Color {
@@ -35,8 +35,9 @@ struct GolferLeaderboardDisplay: View {
                     .scaledToFit()
             })
             .background(
+                // TODO scaledToFill screws up selection hitbox inside List/Grids
                 Color.clear.overlay {
-                    if let flagCode = golfer?.flagCode {
+                    if leaderboard, let flagCode = golfer?.flagCode {
                         Image(flagCode)
                             .resizable()
                             .scaledToFill()
@@ -50,7 +51,7 @@ struct GolferLeaderboardDisplay: View {
                     .foregroundStyle(fontColor)
                     .font(.system(size: 12, weight: .bold))
             }
-            if nametag, let lastName = golfer?.last_name {
+            if leaderboard, let lastName = golfer?.last_name {
                 Text(lastName)
                     .font(.system(size: 12, weight: .semibold))
                     .lineLimit(1)
@@ -62,8 +63,8 @@ struct GolferLeaderboardDisplay: View {
 
 #Preview {
     HStack {
-        GolferLeaderboardDisplay(golfer: Golfer.sample, scoreDisplay: "-1", nametag: false)
-        GolferLeaderboardDisplay(golfer: Golfer.obscured, scoreDisplay: "-1", nametag: false)
+        GolferLeaderboardDisplay(golfer: Golfer.sample, scoreDisplay: "-1", leaderboard: false)
+        GolferLeaderboardDisplay(golfer: Golfer.obscured, scoreDisplay: "-1", leaderboard: false)
     }.frame(height: 100)
         .background(Color.gray)
     

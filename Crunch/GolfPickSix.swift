@@ -41,6 +41,7 @@ struct GolfPickSix: View {
     
     func fetchGolfers() {
         var allGolfers = golfPoolObject.topGolfers
+        if allGolfers.count < 51 { return }
         // first 5 tiers are 10 golfers each
         while golfersByTier.count < 5 {
             let tier = Array(allGolfers.prefix(upTo: tierSize))
@@ -81,7 +82,7 @@ struct GolfPickSix: View {
     
     var body: some View {
         VStack(spacing: 15) {
-            Text("Choose one golfer in each tier. Your score will be the sum of your four best scores.")
+            Text("In this format, participants choose one golfer in each of six tiers, determined by the Official World Golf Ranking prior to the event's start. The entry's score will be the sum of the four best golfer's scores. Golfers are assigned a score of +8 for each round they fail to complete.")
                 .font(.system(size: 12))
                 .messageBox()
             
@@ -159,6 +160,6 @@ struct GolfPickSix: View {
 #Preview {
     GolfPickSix(event: Event(id: UUID(), title: "My event", starts_at: Date()), entry: Entry(profile_id: UUID(), pool_id: UUID(), complete: false, title: "banana"))
         .environmentObject(AppObject.sample)
-        .environmentObject(GolfPoolObject())
-        .environmentObject(PoolObject())
+        .environmentObject(GolfPoolObject(pool: Pool.sample))
+        .environmentObject(PoolObject(pool: Pool.sample))
 }

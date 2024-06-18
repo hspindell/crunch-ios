@@ -68,7 +68,7 @@ struct GolfPoolLeaderboard: View {
             leaderboard = response.leaderboard
             
             let entryResults: [(Entry, GolfPickSixEntryResult)] = poolObject.entries.compactMap { entry in
-                guard entry.complete, let picks = (entry.picks?.value as? [Int]) else { return nil }
+                guard entry.complete, let picks = (entry.picks?.value as? [String]) else { return nil }
                 let picksResults = picks.compactMap { golferId in
                     return response.leaderboard[String(golferId)]
                 }
@@ -94,7 +94,7 @@ struct GolfPoolLeaderboard: View {
                     HStack {
                         Text(entry.profile?.username ?? entry.title)
                         Spacer()
-                        Text(entryResult.sumAdjustedScore.description)
+                        Text(entryResult.adjustedScoreDisplay)
                     }
                     .padding(top: 8, leading: 8, bottom: 0, trailing: 8)
                     .font(.system(size: 14, weight: .semibold))

@@ -20,8 +20,13 @@ import Supabase
 //}
 
 class PoolObject: ObservableObject {
+    var pool: Pool
     @Published var event: Event?
     @Published var entries = [Entry]()
+    
+    init(pool: Pool) {
+        self.pool = pool
+    }
 }
 
 class GolfPoolObject: PoolObject {
@@ -29,13 +34,11 @@ class GolfPoolObject: PoolObject {
     @Published var golfersById = [String : Golfer]()
     
     func fetchGolfers() async {
-        // TODO need to either use top golfers from the time of this event,
-        // or fetch all golfers to make sure we have the old ones
         do {
             let result: [Golfer] = try await supabase
-                .from("current_top_golfers")
+                .rpc("top_golfers_for_event", params: ["start_date": (event?.starts_at ?? Date()).ISO8601Format()])
                 .select()
-                .execute()
+              .execute()
               .value
             
             var idMap = [String: Golfer]()
@@ -51,8 +54,9 @@ class GolfPoolObject: PoolObject {
         }
     }
     
-    override init() {
-        super.init()
+    override init(pool: Pool) {
+        super.init(pool: pool)
+        self.event = pool.event
         Task {
             await fetchGolfers()
         }
@@ -80,6 +84,9 @@ struct PoolPage: View {
             newEntry.profile = appObject.userProfile
             copy.append(newEntry)
             poolObject.entries = copy
+            await MainActor.run {
+                showEntry = newEntry
+            }
         } catch {
             print("joinPool: \(error.localizedDescription)")
         }
@@ -119,7 +126,7 @@ struct PoolPage: View {
     
     init(pool: Pool) {
         self.pool = pool
-        self._poolObject = StateObject(wrappedValue: GolfPoolObject())
+        self._poolObject = StateObject(wrappedValue: GolfPoolObject(pool: pool))
     }
     
     var body: some View {
@@ -182,7 +189,7 @@ struct PoolPage: View {
                 }
                 
                 if let event = poolObject.event, event.started == true {
-                    Text("The event has started and entries have been locked.")
+                    Text("This event has started and entries have been locked.")
                         .font(.system(size: 12))
                         .messageBox()
                     
@@ -190,8 +197,10 @@ struct PoolPage: View {
                         .font(.system(size: 18, weight: .semibold))
                         .padding(top: 15)
                     
-                    if poolObject.entries.isEmpty {
+                    if poolObject.entries.filter(\.complete).isEmpty {
+                        Divider()
                         Text("No entries were submitted.")
+                            .font(.system(size: 12))
                     } else if pool.poolType == .golfPickSix {
                         GolfPoolLeaderboard(event: event, selectedEntry: $showEntry)
                     }
@@ -206,20 +215,16 @@ struct PoolPage: View {
                             
                         Spacer()
                         if !poolObject.entries.contains(where: { $0.profile_id == appObject.userProfile.id }) {
-                            Button("Join") {
-                                Task {
-                                    await joinPool()
+                            JoinButton()
+                                .onTapGesture {
+                                    Task {
+                                        await joinPool()
+                                    }
                                 }
-                            }.buttonStyle(CrunchButtonStyle(small: true, bgColor: .crunchPurple))
-                                .frame(width: 100)
                         } else if pool.admin_id == appObject.userProfile.id || pool.is_public {
                             ShareLink(item: DeepLink.build(action: .joinPool, params: [URLQueryItem(name: "id", value: pool.id.uuidString)])) {
-                                Button("Invite") {}
-                                    .buttonStyle(CrunchButtonStyle(small: true, bgColor: .crunchPurple))
-                                    .frame(width: 100)
+                                InviteButton()
                             }
-                            
-//                            ShareLink("Invite", item:  DeepLink.build(action: .joinPool, params: [URLQueryItem(name: "id", value: pool.id.uuidString)]))
                         }
                     }.padding(top: 20)
                     Divider()
@@ -257,6 +262,23 @@ struct PoolPage: View {
             }
         }
         .environmentObject(poolObject)
+    }
+}
+
+struct JoinButton: View {
+    var text = "Join"
+    var body: some View {
+        Text("\(Image(systemName: "plus")) \(text)")
+            .foregroundStyle(Color.crunchCyan.shade(15))
+            .font(.system(size: 14, weight: .bold))
+    }
+}
+
+struct InviteButton: View {
+    var body: some View {
+        Text("\(Image(systemName: "paperplane")) Invite")
+            .foregroundStyle(Color.crunchCyan.shade(15))
+            .font(.system(size: 14, weight: .bold))
     }
 }
 

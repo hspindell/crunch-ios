@@ -30,11 +30,11 @@ struct EntryPage: View {
     
     func detailText() -> String {
         if isMyEntry && !event.started {
-            return "\nEvent has not started; you may edit your selections until \(event.starts_at.formatted(.dateTime.weekday(.wide).month().day().hour().minute().timeZone()))."
+            return "\nThis event has not started; you may edit your selections until \(event.starts_at.formatted(.dateTime.weekday(.wide).month().day().hour().minute().timeZone()))."
         } else if !isMyEntry && !event.started {
             return "\nYou may view other users' entries once the event has started (\(event.starts_at.formatted(.dateTime.weekday(.wide).month().day().hour().minute().timeZone())))."
         } else if isMyEntry && event.started {
-            return "\nEvent has started; your entry can only be modified by the pool admin."
+            return "\nThis event has started; your entry can only be modified by the pool admin."
         } else { return "" }
     }
     
@@ -108,5 +108,5 @@ struct EntryPage: View {
 #Preview {
     EntryPage(pool: Pool.sample, entry: Entry.sample, event: Event.sample)
         .environmentObject(AppObject.sample)
-        .environmentObject(PoolObject())
+        .environmentObject(PoolObject(pool: Pool.sample))
 }

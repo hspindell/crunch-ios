@@ -63,6 +63,7 @@
 		BAF215D72C20BA5700DF85B2 /* GolfPickSixSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215D62C20BA5700DF85B2 /* GolfPickSixSelections.swift */; };
 		BAF215D92C20F3FC00DF85B2 /* GolferListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215D82C20F3FC00DF85B2 /* GolferListItem.swift */; };
 		BAF215DB2C21039F00DF85B2 /* EventLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215DA2C21039F00DF85B2 /* EventLogo.swift */; };
+		BAF215DD2C21342C00DF85B2 /* PublicPoolListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215DC2C21342C00DF85B2 /* PublicPoolListItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +119,7 @@
 		BAF215D62C20BA5700DF85B2 /* GolfPickSixSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfPickSixSelections.swift; sourceTree = "<group>"; };
 		BAF215D82C20F3FC00DF85B2 /* GolferListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolferListItem.swift; sourceTree = "<group>"; };
 		BAF215DA2C21039F00DF85B2 /* EventLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogo.swift; sourceTree = "<group>"; };
+		BAF215DC2C21342C00DF85B2 /* PublicPoolListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicPoolListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 				BAF215D42C1E447E00DF85B2 /* MemberEntry.swift */,
 				BAF215D62C20BA5700DF85B2 /* GolfPickSixSelections.swift */,
 				BAF215DA2C21039F00DF85B2 /* EventLogo.swift */,
+				BAF215DC2C21342C00DF85B2 /* PublicPoolListItem.swift */,
 			);
 			path = Crunch;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				BA7F9CA72C006DDA0044E4DD /* ShadowedText.swift in Sources */,
 				BA7F9CA52C0056D40044E4DD /* LandingPage.swift in Sources */,
 				BA4A8DA22BC8919C006ED4DC /* ContentView.swift in Sources */,
+				BAF215DD2C21342C00DF85B2 /* PublicPoolListItem.swift in Sources */,
 				BAE1C1EA2BEACF8600183C8A /* CirclePage.swift in Sources */,
 				BA7F9CA92C006E8F0044E4DD /* CrunchButtonStyle.swift in Sources */,
 				BADEA7D52C05BA9700B99993 /* ShadowBox.swift in Sources */,

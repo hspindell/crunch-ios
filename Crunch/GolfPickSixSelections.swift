@@ -22,22 +22,23 @@ struct GolfPickSixSelections: View {
     var body: some View {
         LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 0), count: 3), spacing: 0) {
             ForEach(0..<6) { i in
-                GolferLeaderboardDisplay(golfer: golferAtTier(i), scoreDisplay: viewable ? (golferAtTier(i)?.last_name ?? "-") : "?", nametag: false, selected: currentTier == i)
+                GolferLeaderboardDisplay(golfer: golferAtTier(i), scoreDisplay: viewable ? (golferAtTier(i)?.last_name ?? "-") : "?", leaderboard: false, selected: currentTier == i)
                     .border((viewable && currentTier == i) ? Color.crunchYellow : Color.black, width: 2)
                     .onTapGesture {
                         currentTier = i
                     }
             }
         }
-        .background(StripeBGDark())
+        .background(Color.white.opacity(0.15))
     }
 }
 
 #Preview {
     ZStack {
-        StripeBG()
+        StripeBGDark()
         GolfPickSixSelections(selectionsByTier: [1: .sample, 2: .sample], viewable: true, currentTier: .constant(1))
             .frame(height: 300)
+            
     }
 
 }

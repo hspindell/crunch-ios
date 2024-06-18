@@ -158,10 +158,13 @@ struct UserHome: View {
                             .foregroundStyle(Color.white)
                         Spacer()
                     }
-                    EntriesList(entries: myEntries,
+                    EntriesList(pools: myEntries.map(\.pool), 
+                                includePublicCard: true,
+                                includeCreateCard: true,
                                 selectedPool: $selectedPool,
                                 showFindPool: $showFindPool,
                                 showCreatePool: $showCreatePool)
+                    .padding(h: -30)
                     
                     Text("My Circles")
                         .font(.system(size: 28, weight: .semibold))

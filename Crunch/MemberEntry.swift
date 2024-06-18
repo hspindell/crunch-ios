@@ -26,7 +26,7 @@ struct MemberEntry: View {
         }
         .contentShape(Rectangle())
         .padding(8)
-        .highlighted(.black.opacity(0.5))
+        .highlighted(.black.opacity(0.7))
         .foregroundStyle(Color.white)
     }
 }
