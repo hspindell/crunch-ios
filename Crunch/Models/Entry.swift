@@ -36,6 +36,10 @@ struct MyEntryOverview: Codable, Identifiable {
     }
 }
 
+extension Entry {
+    static let sample = Entry(profile_id: .init(), pool_id: .init(), complete: false, title: "Super good entry", profile: Profile.sample)
+}
+
 //protocol EntryProtocol: Codable, Identifiable {
 //    var profile_id: UUID { get }
 //    var pool_id: UUID { get }

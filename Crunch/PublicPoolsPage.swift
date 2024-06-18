@@ -23,7 +23,6 @@ struct PublicPoolsPage: View {
                 .greaterThanOrEquals("events.starts_at", value: Date().ISO8601Format())
                 .order("starts_at", ascending: true, referencedTable: "events")
                 .execute()
-                .debug()
               .value
             await MainActor.run {
                 pools = result

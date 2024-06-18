@@ -210,7 +210,6 @@ struct UserHome: View {
             CreateCirclePage()
         }
         .fullScreenCover(isPresented: $showCreatePool, onDismiss: onPageAppear) {
-//            CreatePoolPage(allowCircleChange: true)
             CreatePoolFlow()
         }
         .onChange(of: appObject.deepLinkPoolId) { oldValue, newValue in

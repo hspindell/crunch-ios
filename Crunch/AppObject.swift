@@ -62,10 +62,13 @@ class DeepLink {
     }
     
     static func build(action: Action, params: [URLQueryItem] = []) -> String {
+        // TODO fix to use branch link
         let queryString = params.compactMap { item in
             guard let val = item.value else { return nil }
             return "\(item.name)=\(val)"
         }.joined(separator: "&")
-        return "crunchapp://\(action.rawValue)?\(queryString)"
+        // TODO fix for prod environment
+        // and use crunchpools.com domain
+        return "https://qanku.test-app.link/\(action.rawValue)?\(queryString)"
     }
 }

@@ -43,6 +43,7 @@ struct CreatePoolChooseCircle: View {
             Spacer()
             
             Button(selectedCircle.hasValue ? "Continue" : "Skip") {
+                manager.circle = selectedCircle
                 manager.slideTo(step: .event)
             }
             .buttonStyle(CrunchButtonStyle(flow: true))

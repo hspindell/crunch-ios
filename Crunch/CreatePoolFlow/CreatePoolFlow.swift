@@ -14,6 +14,10 @@ final class CreateCircleManager: ObservableObject {
     @Published var navigatingForward = true
     @Published var step = Step.circle
     
+    var circle: CrCircle?
+    var event: Event?
+    
+    
     func slideTo(step: Step, forward: Bool = true) {
         navigatingForward = forward
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

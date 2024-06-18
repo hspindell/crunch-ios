@@ -29,7 +29,8 @@ class GolfPoolObject: PoolObject {
     @Published var golfersById = [String : Golfer]()
     
     func fetchGolfers() async {
-        // TODO cache?
+        // TODO need to either use top golfers from the time of this event,
+        // or fetch all golfers to make sure we have the old ones
         do {
             let result: [Golfer] = try await supabase
                 .from("current_top_golfers")
@@ -122,88 +123,126 @@ struct PoolPage: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Button("Back") {
-                dismiss()
-            }
-//            ZStack {
-////                AsyncImage(url: poolObject.event?.coverImageURL) { result in
-////                    result.image?
-////                        .resizable()
-////                        .scaledToFill()
-////                        .frame(height: 150)
-////                        .clipped()
-////                }
-////                Color.black.opacity(0.3)
-////                    .frame(height: 150)
-                VStack(alignment: .leading) {
-                    HStack {
+        VStack(alignment: .leading, spacing: 20) {
+            VStack {
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text(pool.title)
-                            .font(.title2)
-                        Spacer()
+                            .font(.system(size: 20, weight: .semibold))
+                            .padding(leading: 15)
+                            .leadingHighlight()
                         Text(pool.pool_type)
-                            .font(.subheadline)
+                            .font(.system(size: 14, weight: .semibold))
+                            .padding(leading: 15)
+                            .leadingHighlight()
                     }
-                    Text(poolObject.event?.title ?? "")
-                        .font(.subheadline)
                     Spacer()
-                    HStack {
+                    CloseButton()
+                        .padding(trailing: 15)
+                }
+                Spacer()
+                HStack(alignment: .bottom) {
+                    EventLogo(url: poolObject.event?.logoURL)
+                    .padding(leading: 15)
+                    
+                    Spacer()
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Text(pool.event?.title ?? "Unknown event")
+                            .font(.system(size: 14, weight: .semibold))
+                            .padding(trailing: 15)
+                            .trailingHighlight(.black)
                         Text("\(poolObject.event?.starts_at.formatted(date: .abbreviated, time: .omitted) ?? "Start date TBD")")
-                            .font(.title3)
-                        Spacer()
-                        AsyncImage(url: poolObject.event?.logoURL) { result in
+                            .font(.system(size: 14, weight: .semibold))
+                            .padding(trailing: 15)
+                            .trailingHighlight(.black)
+                    }
+                    .foregroundStyle(Color.white)
+                }
+            }
+            .padding(v: 15)
+            .frame(height: 175)
+            .background(
+                Color.crunchCyan
+                    .overlay {
+                        AsyncImage(url: pool.event?.coverImageURL) { result in
                             result.image?
                                 .resizable()
-                                .scaledToFit()
-                        }.frame(height: 75)
+                                .scaledToFill()
+                        }
                     }
-                }
-                .frame(height: 150)
-//                .foregroundColor(.white)
+                    .clipped()
+                    .edgesIgnoringSafeArea(.all)
+            )
 
-//            }
-            
-            
-            if let event = poolObject.event, event.started == true {
-                Text("The event has started and entries have been locked.")
-                
-                Spacer()
-                Text("Leaderboard")
-                    .font(.title2)
-                
-                if pool.poolType == .golfPickSix {
-                    GolfPoolLeaderboard(event: event, selectedEntry: $showEntry)
+            VStack(alignment: .leading, spacing: 10) {
+                if let details = pool.details, details.isPresent {
+                    Text(details)
+                        .font(.system(size: 12))
+                        .messageBox()
                 }
-            } else {
-                Text("Entries will be locked on \(poolObject.event?.starts_at.formatted(.dateTime.weekday(.wide).month().day().hour().minute().timeZone()) ?? "TBD").")
-                Spacer()
                 
-                HStack {
-                    Text("Entries")
-                        .font(.title2)
-                    Spacer()        
-                    if !poolObject.entries.contains(where: { $0.profile_id == appObject.userProfile.id }) {
-                        Button("Join") {
-                            Task {
-                                await joinPool()
+                if let event = poolObject.event, event.started == true {
+                    Text("The event has started and entries have been locked.")
+                        .font(.system(size: 12))
+                        .messageBox()
+                    
+                    Text("Leaderboard")
+                        .font(.system(size: 18, weight: .semibold))
+                        .padding(top: 15)
+                    
+                    if poolObject.entries.isEmpty {
+                        Text("No entries were submitted.")
+                    } else if pool.poolType == .golfPickSix {
+                        GolfPoolLeaderboard(event: event, selectedEntry: $showEntry)
+                    }
+                } else {
+                    Text("Entries will be locked on \(poolObject.event?.starts_at.formatted(.dateTime.weekday(.wide).month().day().hour().minute().timeZone()) ?? "TBD").")
+                        .font(.system(size: 12))
+                        .messageBox()
+                    
+                    HStack {
+                        Text("Entries")
+                            .font(.system(size: 18, weight: .semibold))
+                            
+                        Spacer()
+                        if !poolObject.entries.contains(where: { $0.profile_id == appObject.userProfile.id }) {
+                            Button("Join") {
+                                Task {
+                                    await joinPool()
+                                }
+                            }.buttonStyle(CrunchButtonStyle(small: true, bgColor: .crunchPurple))
+                                .frame(width: 100)
+                        } else if pool.admin_id == appObject.userProfile.id || pool.is_public {
+                            ShareLink(item: DeepLink.build(action: .joinPool, params: [URLQueryItem(name: "id", value: pool.id.uuidString)])) {
+                                Button("Invite") {}
+                                    .buttonStyle(CrunchButtonStyle(small: true, bgColor: .crunchPurple))
+                                    .frame(width: 100)
+                            }
+                            
+//                            ShareLink("Invite", item:  DeepLink.build(action: .joinPool, params: [URLQueryItem(name: "id", value: pool.id.uuidString)]))
+                        }
+                    }.padding(top: 20)
+                    Divider()
+                    
+                    if poolObject.entries.isEmpty {
+                        Text("No entries have been submitted yet.")
+                    } else {
+                        ScrollView {
+                            ForEach(poolObject.entries) { e in
+                                MemberEntry(entry: e)
+                                    .onTapGesture {
+                                        showEntry = e
+                                    }
+                                    .padding(h: 10)
                             }
                         }
-                    } else if pool.admin_id == appObject.userProfile.id || pool.is_public {
-                        ShareLink("Invite", item:  DeepLink.build(action: .joinPool, params: [URLQueryItem(name: "id", value: pool.id.uuidString)]))
                     }
                 }
-                List(poolObject.entries) { e in
-                    HStack {
-                        Text(e.profile?.username ?? "")
-                        Spacer()
-                        Text(e.complete ? "Complete" : "Incomplete")
-                    }.onTapGesture {
-                        showEntry = e
-                    }
-                }
-            }
+            }.padding(h: 15)
+
             Spacer()
         }
+        .background(StripeBG())
         .fullScreenCover(item: $showEntry, onDismiss: {
             Task { await fetchEntries() }
         }) { entry in
@@ -221,6 +260,21 @@ struct PoolPage: View {
     }
 }
 
+struct CloseButton: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        Text("X")
+            .font(.system(size: 16, weight: .bold))
+            .padding(8)
+            .background(Color.white)
+            .clipShape(Circle())
+            .onTapGesture {
+                dismiss()
+            }
+    }
+}
+
 #Preview {
-    PoolPage(pool: Pool(id: UUID(), created_at: Date(), admin_id: UUID(), event_id: UUID(), title: "Test Pool", pool_type: "golf-pick-six", is_public: false, events: nil))
+    PoolPage(pool: Pool.sample)
 }

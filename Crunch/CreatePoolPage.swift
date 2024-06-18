@@ -7,37 +7,6 @@
 
 import SwiftUI
 
-struct Pool: Codable, Identifiable {
-    var id: UUID
-    var created_at: Date
-    var circle_id: UUID?
-    var admin_id: UUID
-    var event_id: UUID
-    var title: String
-    var details: String?
-    var pool_type: String
-    var is_public: Bool
-    
-    var events: Event?
-    var event: Event? { events }
-    
-    var poolType: PoolType? {
-        PoolType(rawValue: pool_type)
-    }
-    enum PoolType: String, Codable {
-        case golfPickSix = "golf-pick-six"
-    }
-}
-
-struct PoolCreate: Codable {
-    var circle_id: UUID?
-    var event_id: UUID
-    var title: String
-    var details: String?
-    var pool_type: Pool.PoolType
-    var is_public: Bool
-}
-
 struct CreatePoolPage: View {
     @EnvironmentObject var appObject: AppObject
     @Environment(\.dismiss) var dismiss

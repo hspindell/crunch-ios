@@ -7,48 +7,6 @@
 
 import SwiftUI
 
-struct Golfer: Codable, Identifiable, Equatable {
-    var id: String { pga_id }
-    
-    var pga_id: String
-    var first_name: String
-    var last_name: String
-    var rank: Int
-    var avatar_url: String?
-    var avatarURL: URL? { avatar_url?.url }
-    var country: String
-    
-    static let flagCodeMapping = [
-        "ARG": "ar",
-        "AUS": "au",
-        "AUT": "at",
-        "BEL": "be",
-        "CAN": "ca",
-        "CHI": "cl",
-        "DEN": "dk",
-        "ENG": "gb-eng",
-        "ESP": "es",
-        "FIN": "fi",
-        "FRA": "fr",
-        "GER": "de",
-        "IRL": "ie",
-        "JPN": "jp",
-        "KOR": "kr",
-        "NIR": "gb-nir",
-        "NOR": "no",
-        "NZL": "nz",
-        "POL": "pl",
-        "RSA": "za",
-        "SCO": "gb-sct",
-        "SWE": "se",
-        "USA": "us",
-    ]
-    
-    var flagCode: String? {
-        Self.flagCodeMapping[country]
-    }
-}
-
 struct EntryPage: View {
     @EnvironmentObject var appObject: AppObject
     @Environment(\.dismiss) var dismiss
@@ -56,28 +14,77 @@ struct EntryPage: View {
     var entry: Entry
     var event: Event
     
+    @State var entryTitle = ""
+    
+    var isMyEntry: Bool {
+        entry.profile_id == appObject.userProfile.id
+    }
+    
+    var viewable: Bool {
+        isMyEntry || event.started
+    }
+
+    var editable: Bool {
+        isMyEntry && !event.started
+    }
+    
+    func detailText() -> String {
+        if isMyEntry && !event.started {
+            return "\nEvent has not started; you may edit your selections until \(event.starts_at.formatted(.dateTime.weekday(.wide).month().day().hour().minute().timeZone()))."
+        } else if !isMyEntry && !event.started {
+            return "\nYou may view other users' entries once the event has started (\(event.starts_at.formatted(.dateTime.weekday(.wide).month().day().hour().minute().timeZone())))."
+        } else if isMyEntry && event.started {
+            return "\nEvent has started; your entry can only be modified by the pool admin."
+        } else { return "" }
+    }
+    
+    init(pool: Pool, entry: Entry, event: Event) {
+        self.pool = pool
+        self.entry = entry
+        self.event = event
+        self._entryTitle = State(initialValue: entry.title)
+    }
+    
     var body: some View {
-        ZStack {
-            if entry.complete {
-                Color.green
-            } else if !event.started {
-                Color.yellow
-            } else {
-                Color.red
-            }
+        ScrollView {
             VStack(alignment: .leading) {
-                Button("Back") {
-                    dismiss()
-                }
-                // TODO allow edit title if entry owner
-                Text(entry.title)
-                    .font(.title)
-                Text(entry.complete ? "Complete" : "Incomplete")
-                    .font(.title3)
-                Text(pool.title)
-                    .font(.title3)
-                Text("\(event.title) (\(pool.pool_type))")
-                    .font(.title3)
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(entry.title.presence ?? "\(entry.profile?.username ?? "User")'s Entry")
+                            .font(.system(size: 20, weight: .semibold))
+                            .padding(top: 8, leading: 15, bottom: 8, trailing: 8)
+                            .leadingHighlight(Color.black)
+                            .foregroundStyle(Color.white)
+                        
+                        Text("\(pool.title) (\(pool.pool_type))")
+                        .font(.system(size: 12))
+                        .padding(top: 8, leading: 15, bottom: 8, trailing: 8)
+                        .highlighted(.black)
+                        .foregroundStyle(Color.white)
+                    }
+                    .padding(leading: -15)
+                    Spacer()
+                    CloseButton()
+                }.padding(bottom: 10)
+                
+//                if isMyEntry && !event.started {
+//                    TextField("", text: $entryTitle)
+//                        .textFieldStyle(CrunchFieldStyle())
+//                        .labeled("Entry name")
+//                } else {
+
+//                }
+                // TODO enable editing entry title
+                
+                (
+                Text("Entry is \(entry.complete ? "complete" : "incomplete").")
+                    .fontWeight(.semibold)
+                +
+                Text(detailText())
+                )
+                .font(.system(size: 12))
+                .messageBox()
+
                 Spacer()
                 switch pool.poolType {
                 case .golfPickSix:
@@ -85,17 +92,21 @@ struct EntryPage: View {
                 case .none:
                     Text("This pool type is not yet supported. Try updating from the App Store.")
                 }
-
+                
                 Spacer()
             }
-            .padding(30)
+            .padding(15)
+
         }
-
-
+        .padding(top: 50) // TODO better approach for safe areas
+        .ignoresSafeArea(.all)
+        .background(StripeBG())
     }
 }
 
 // TODO sample data
-//#Preview {
-//    EntryPage(entry: Entry(profile_id: UUID(), pool_id: UUID(), complete: false, title: "My Entry"))
-//}
+#Preview {
+    EntryPage(pool: Pool.sample, entry: Entry.sample, event: Event.sample)
+        .environmentObject(AppObject.sample)
+        .environmentObject(PoolObject())
+}

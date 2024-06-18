@@ -32,6 +32,16 @@ struct GolfPickSixEntryResult {
     var entryId: String
     var sumAdjustedScore: Int
     var topGolferIds: [String]
+    
+    var adjustedScoreDisplay: String {
+        if sumAdjustedScore == 0 {
+            return "E"
+        } else if sumAdjustedScore > 0 {
+            return "+\(sumAdjustedScore)"
+        } else {
+            return sumAdjustedScore.description
+        }
+    }
 }
 
 struct GolfPoolLeaderboard: View {
@@ -77,41 +87,35 @@ struct GolfPoolLeaderboard: View {
     }
     
     var body: some View {
-        VStack {
-            List(orderedEntries, id: \.0.id) { entry, entryResult in
-                VStack(alignment: .leading) {
+        ScrollView {
+            Divider()
+            ForEach(orderedEntries, id: \.0.id) { entry, entryResult in
+                VStack(alignment: .leading, spacing: 0) {
                     HStack {
                         Text(entry.profile?.username ?? entry.title)
                         Spacer()
                         Text(entryResult.sumAdjustedScore.description)
                     }
-                    .fontWeight(.bold)
-                    HStack {
+                    .padding(top: 8, leading: 8, bottom: 0, trailing: 8)
+                    .font(.system(size: 14, weight: .semibold))
+                    
+                    Divider()
+                        .background(Color.white)
+                        .foregroundStyle(Color.white)
+                        .padding(top: 4)
+                    
+                    HStack(spacing: 0) {
                         ForEach(entryResult.topGolferIds, id: \.self) { golferId in
-                            VStack {
-                                ZStack {
-                                    if let flagCode = poolObject.golfersById[golferId]?.flagCode {
-                                        Image(flagCode)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 30, height: 30)
-                                    }
-                                    AsyncImage(url: poolObject.golfersById[golferId]?.avatarURL) { result in
-                                        result.image?
-                                            .resizable()
-                                            .scaledToFit()
-                                    }
-                                }
-
-                                Text(poolObject.golfersById[golferId]?.last_name ?? golferId)
-                                    .fontWeight(.semibold)
-                                Text(leaderboard[golferId]?.scoreDisplay ?? "??")
+                            if let golfer = poolObject.golfersById[golferId] {
+                                GolferLeaderboardDisplay(golfer: golfer, scoreDisplay: leaderboard[golferId]?.scoreDisplay ?? "??")
                             }
-                            Spacer()
                         }
                     }
-                    .font(.caption)
                 }
+                .background(Color.black)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .foregroundStyle(Color.white)
+                .padding(top: 10)
                 .onTapGesture {
                     selectedEntry = poolObject.entries.first(where: { $0.id == entryResult.entryId })
                 }
@@ -124,5 +128,5 @@ struct GolfPoolLeaderboard: View {
 }
 
 #Preview {
-    GolfPoolLeaderboard(event: Event(id: UUID(), title: "", starts_at: Date()), selectedEntry: .constant(nil))
+    GolfPoolLeaderboard(event: Event.sample, selectedEntry: .constant(nil))
 }

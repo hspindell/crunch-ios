@@ -38,7 +38,7 @@ struct PoolCard: View {
                 }
                 .solidShadow(size: CGSize(width: 55, height: 55), cornerRadius: 27.5, offset: (1, 2))
 
-                Text(title ?? entry?.title ?? "")
+                Text(title ?? entry?.pool.title ?? "Pool")
                     .font(.system(size: 14, weight: .medium))
             }
         }

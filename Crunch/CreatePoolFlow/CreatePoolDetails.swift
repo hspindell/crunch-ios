@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct CreatePoolDetails: View {
-    @State var poolTitle = "Default Title Here"
+    @EnvironmentObject var appObject: AppObject
+    @EnvironmentObject var manager: CreateCircleManager
+    @State var poolTitle = ""
     @State var poolDetails = ""
     @State var poolIsPublic = false
+    
     var body: some View {
         CreatePoolStepBody(title: "Complete your pool details") {
             VStack(spacing: 20) {
@@ -43,36 +46,58 @@ struct CreatePoolDetails: View {
                 Spacer()
                 
                 Button("Create") {
-                // TODO get other info from flow + submit
-//                    Task {
-//                        do {
-//                            let newPool = PoolCreate(circle_id: circle?.id, event_id: event.id, title: poolName, details: details, pool_type: .golfPickSix, is_public: isPublic)
-//                            try await supabase
-//                                .from("pools")
-//                                .insert(newPool)
-//                                .execute()
-//                            dismiss()
-//                        } catch {
-//                            print(error.localizedDescription)
-//                        }
-//                    }
+                    guard let eventId = manager.event?.id else {
+                        return
+                    }
+                    Task {
+                        do {
+                            let poolData = PoolCreate(circle_id: manager.circle?.id, event_id: eventId, title: poolTitle, details: poolDetails, pool_type: .golfPickSix, is_public: poolIsPublic)
+                            let pool: Pool = try await supabase
+                                .from("pools")
+                                .insert(poolData)
+                                .select()
+                                .single()
+                                .execute()
+                                .value
+                            appObject.deepLinkPoolId = pool.id.uuidString
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
                 }
                 .buttonStyle(CrunchButtonStyle())
                 .disabled(poolTitle.isEmpty)
             }
+        }.onAppear {
+            poolTitle = manager.event?.title ?? "My Pool"
         }
     }
 }
 
-struct CrunchFieldStyle: TextFieldStyle {
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
+struct CrunchFieldModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
             .padding(10)
             .background(Color.backgroundCream)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray.opacity(0.24), lineWidth: 2)
             )
+    }
+}
+
+// Extension to make it easier to apply the custom style
+extension View {
+    func crunchEditorStyle() -> some View {
+        self.modifier(CrunchFieldModifier())
+    }
+}
+
+
+struct CrunchFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .crunchEditorStyle()
     }
 }
 

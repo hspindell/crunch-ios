@@ -18,7 +18,7 @@ struct CreatePoolChooseEvent: View {
             let result: [Event] = try await supabase
                 .from("events")
                 .select()
-//                .greaterThanOrEquals("starts_at", value: Date().ISO8601Format())
+                .greaterThanOrEquals("starts_at", value: Date().ISO8601Format())
                 .order("starts_at", ascending: true)
                 .execute()
                 .value
@@ -45,6 +45,7 @@ struct CreatePoolChooseEvent: View {
             }
             
             Button("Continue") {
+                manager.event = selectedEvent
                 manager.slideTo(step: .details)
             }
             .buttonStyle(CrunchButtonStyle(flow: true))

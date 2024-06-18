@@ -40,6 +40,11 @@ extension String {
     var isPresent: Bool {
         !isEmpty
     }
+    
+    var presence: String? {
+        if isEmpty { return nil }
+        return self
+    }
 }
 
 extension View {
@@ -72,6 +77,20 @@ extension View {
                 .offset(x: offset.0, y: offset.1)
             self
         }
+    }
+    
+    func messageBox() -> some View {
+        HStack {
+            self
+            Spacer()
+        }
+        .padding(10)
+        .background(Color.backgroundCream.opacity(0.6))
+        .clipShape(RoundedRectangle(cornerRadius: 6))
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray, lineWidth: 1)
+        )
     }
     
 //    func solidShadow(cornerRadius: CGFloat, offset: (CGFloat, CGFloat) = (3, 5)) -> some View {
@@ -111,3 +130,58 @@ extension Color {
     static let crunchOrange = Color(red: 1, green: 155/255, blue: 0)
 }
 
+extension UIColor {
+    var r: CGFloat { CIColor(color: self).red }
+    var g: CGFloat { CIColor(color: self).green }
+    var b: CGFloat { CIColor(color: self).blue }
+    var a: CGFloat { CIColor(color: self).alpha }
+}
+
+extension Color {
+    init(r: Int, g: Int, b: Int, a: CGFloat = 1.0) {
+        self.init(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, opacity: a)
+    }
+
+    init(hex: Int) {
+        self.init(
+            r: (hex >> 16) & 0xFF,
+            g: (hex >> 8) & 0xFF,
+            b: hex & 0xFF
+        )
+    }
+
+    init?(hex: String) {
+        var str = hex
+        if str.hasPrefix("#") {
+            str.removeFirst()
+        }
+        guard str.count == 6, let color = Int(str, radix: 16) else { return nil }
+        self.init(hex: color)
+    }
+
+    /// Produces a lighter version of this color
+    /// Tint of 0 results in the same color, tint of 100 results in pure white
+    /// Use `shade` to get a darker color.
+    func tint(_ tint: CGFloat) -> Color {
+        let c = UIColor(self)
+        let d = 100.0 / tint
+        let tintRed = c.r + (1 - c.r) / d
+        let tintGreen = c.g + (1 - c.g) / d
+        let tintBlue = c.b + (1 - c.b) / d
+
+        return Color(red: tintRed, green: tintGreen, blue: tintBlue, opacity: c.a)
+    }
+
+    /// Produces a darker version of this color
+    /// Shade of 0 results in the same color, shade of 100 results in pure black
+    /// Use `tint` to get a darker color.
+    func shade(_ shade: CGFloat) -> Color {
+        let c = UIColor(self)
+        let d = 100.0 / shade
+        let shadeRed = c.r - c.r / d
+        let shadeGreen = c.g - c.g / d
+        let shadeBlue = c.b - c.b / d
+
+        return Color(red: shadeRed, green: shadeGreen, blue: shadeBlue, opacity: c.a)
+    }
+}
