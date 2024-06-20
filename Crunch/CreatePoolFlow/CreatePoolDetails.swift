@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CreatePoolDetails: View {
     @EnvironmentObject var appObject: AppObject
-    @EnvironmentObject var manager: CreateCircleManager
+    @EnvironmentObject var manager: CreatePoolManager
     @State var poolTitle = ""
     @State var poolDetails = ""
     @State var poolIsPublic = false
@@ -78,10 +78,12 @@ struct CrunchFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(10)
-            .background(Color.backgroundCream)
+            .background(Color.white.opacity(0.7))
+            .foregroundStyle(Color.black)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray.opacity(0.24), lineWidth: 2)
+                    .stroke(Color.white, lineWidth: 1)
             )
     }
 }

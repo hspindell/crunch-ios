@@ -168,7 +168,7 @@ struct UserHome: View {
                     
                     Text("My Circles")
                         .font(.system(size: 28, weight: .semibold))
-                        .padding(.top, 50)
+                        .padding(.top, 30)
                     VStack(spacing: 15) {
                         ForEach(appObject.circles) { circle in
                             CircleCard(circle: circle)
@@ -180,7 +180,7 @@ struct UserHome: View {
                             .onTapGesture {
                                 showCreateCircle = true
                             }
-                    }
+                    }.padding(bottom: 50)
                     
                     Spacer()
 

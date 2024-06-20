@@ -17,12 +17,18 @@ struct SignUpForm: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            TextField("Email", text: $email)
+            TextField("Enter email", text: $email)
                 .keyboardType(.emailAddress)
                 .textInputAutocapitalization(.never)
-            TextField("Username", text: $username)
+                .textFieldStyle(CrunchFieldStyle())
+                .labeled("Email", font: .system(size: 12, weight: .semibold), color: .white)
+            TextField("Enter username", text: $username)
                 .textInputAutocapitalization(.never)
-            SecureField("Password", text: $password)
+                .textFieldStyle(CrunchFieldStyle())
+                .labeled("Username", font: .system(size: 12, weight: .semibold), color: .white)
+            SecureField("Enter password", text: $password)
+                .textFieldStyle(CrunchFieldStyle())
+                .labeled("Password", font: .system(size: 12, weight: .semibold), color: .white)
             Button("Sign up") {
                 Task {
                     inProgress = true
@@ -33,7 +39,6 @@ struct SignUpForm: View {
             HStack {
                 Spacer()
                 Text("Already have an account?")
-                    .foregroundStyle(Color.lightText)
                 Text("Sign in")
                     .fontWeight(.semibold)
                     .underline()

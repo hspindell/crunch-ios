@@ -169,7 +169,7 @@ struct PoolPage: View {
             .padding(v: 15)
             .frame(height: 175)
             .background(
-                Color.crunchCyan
+                StripeBGTheme()
                     .overlay {
                         AsyncImage(url: pool.event?.coverImageURL) { result in
                             result.image?
@@ -293,6 +293,20 @@ struct CloseButton: View {
             .clipShape(Circle())
             .onTapGesture {
                 dismiss()
+            }
+    }
+}
+
+struct BackButton: View {
+    var action: () -> Void
+    var body: some View {
+        Text("\(Image(systemName: "chevron.backward"))")
+            .font(.system(size: 16, weight: .bold))
+            .padding(8)
+            .background(Color.white)
+            .clipShape(Circle())
+            .onTapGesture {
+                action()
             }
     }
 }

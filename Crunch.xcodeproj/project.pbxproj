@@ -33,7 +33,6 @@
 		BA7F9CB72C05A9270044E4DD /* MyPoolsCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F9CB62C05A9270044E4DD /* MyPoolsCarousel.swift */; };
 		BADEA7D32C05B1F600B99993 /* PoolCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADEA7D22C05B1F600B99993 /* PoolCard.swift */; };
 		BADEA7D52C05BA9700B99993 /* ShadowBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADEA7D42C05BA9700B99993 /* ShadowBox.swift */; };
-		BAE1C1DB2BD18E6E00183C8A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1C1DA2BD18E6E00183C8A /* Home.swift */; };
 		BAE1C1DE2BD3281900183C8A /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = BAE1C1DD2BD3281900183C8A /* Auth */; };
 		BAE1C1E02BD3281900183C8A /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = BAE1C1DF2BD3281900183C8A /* Functions */; };
 		BAE1C1E22BD3281900183C8A /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = BAE1C1E12BD3281900183C8A /* PostgREST */; };
@@ -64,6 +63,9 @@
 		BAF215D92C20F3FC00DF85B2 /* GolferListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215D82C20F3FC00DF85B2 /* GolferListItem.swift */; };
 		BAF215DB2C21039F00DF85B2 /* EventLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215DA2C21039F00DF85B2 /* EventLogo.swift */; };
 		BAF215DD2C21342C00DF85B2 /* PublicPoolListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF215DC2C21342C00DF85B2 /* PublicPoolListItem.swift */; };
+		BAF596622C249D370086BADB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF596612C249D370086BADB /* Environment.swift */; };
+		BAF596662C24DBD80086BADB /* BranchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BAF596652C24DBD80086BADB /* BranchSDK */; };
+		BAF596682C24DC7C0086BADB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF596672C24DC7C0086BADB /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,7 +97,6 @@
 		BA7F9CB62C05A9270044E4DD /* MyPoolsCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPoolsCarousel.swift; sourceTree = "<group>"; };
 		BADEA7D22C05B1F600B99993 /* PoolCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCard.swift; sourceTree = "<group>"; };
 		BADEA7D42C05BA9700B99993 /* ShadowBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowBox.swift; sourceTree = "<group>"; };
-		BAE1C1DA2BD18E6E00183C8A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		BAE1C1E92BEACF8600183C8A /* CirclePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePage.swift; sourceTree = "<group>"; };
 		BAE1C1EB2BEAD59900183C8A /* CreatePoolPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePoolPage.swift; sourceTree = "<group>"; };
 		BAE1C1ED2BEC2CF300183C8A /* PoolPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolPage.swift; sourceTree = "<group>"; };
@@ -120,6 +121,9 @@
 		BAF215D82C20F3FC00DF85B2 /* GolferListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolferListItem.swift; sourceTree = "<group>"; };
 		BAF215DA2C21039F00DF85B2 /* EventLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogo.swift; sourceTree = "<group>"; };
 		BAF215DC2C21342C00DF85B2 /* PublicPoolListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicPoolListItem.swift; sourceTree = "<group>"; };
+		BAF596612C249D370086BADB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		BAF596632C24D7BC0086BADB /* Crunch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Crunch.entitlements; sourceTree = "<group>"; };
+		BAF596672C24DC7C0086BADB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 			files = (
 				BAE1C1DE2BD3281900183C8A /* Auth in Frameworks */,
 				BAE1C1E82BD3281900183C8A /* Supabase in Frameworks */,
+				BAF596662C24DBD80086BADB /* BranchSDK in Frameworks */,
 				BAE1C1E02BD3281900183C8A /* Functions in Frameworks */,
 				BAE1C1E42BD3281900183C8A /* Realtime in Frameworks */,
 				BAE1C1E22BD3281900183C8A /* PostgREST in Frameworks */,
@@ -158,6 +163,7 @@
 		BA4A8D9E2BC8919C006ED4DC /* Crunch */ = {
 			isa = PBXGroup;
 			children = (
+				BAF596632C24D7BC0086BADB /* Crunch.entitlements */,
 				BAF215D82C20F3FC00DF85B2 /* GolferListItem.swift */,
 				BAF215BF2C1A6BFF00DF85B2 /* CreatePoolFlow */,
 				BA2C26AF2BFF131F00C65AEB /* Info.plist */,
@@ -168,7 +174,6 @@
 				BA4A8DA32BC8919C006ED4DC /* Item.swift */,
 				BA4A8DA52BC8919E006ED4DC /* Assets.xcassets */,
 				BA4A8DA72BC8919E006ED4DC /* Preview Content */,
-				BAE1C1DA2BD18E6E00183C8A /* Home.swift */,
 				BAE1C1E92BEACF8600183C8A /* CirclePage.swift */,
 				BAE1C1EB2BEAD59900183C8A /* CreatePoolPage.swift */,
 				BAE1C1ED2BEC2CF300183C8A /* PoolPage.swift */,
@@ -201,6 +206,8 @@
 				BAF215D62C20BA5700DF85B2 /* GolfPickSixSelections.swift */,
 				BAF215DA2C21039F00DF85B2 /* EventLogo.swift */,
 				BAF215DC2C21342C00DF85B2 /* PublicPoolListItem.swift */,
+				BAF596612C249D370086BADB /* Environment.swift */,
+				BAF596672C24DC7C0086BADB /* AppDelegate.swift */,
 			);
 			path = Crunch;
 			sourceTree = "<group>";
@@ -261,6 +268,7 @@
 				BAE1C1E32BD3281900183C8A /* Realtime */,
 				BAE1C1E52BD3281900183C8A /* Storage */,
 				BAE1C1E72BD3281900183C8A /* Supabase */,
+				BAF596652C24DBD80086BADB /* BranchSDK */,
 			);
 			productName = payup;
 			productReference = BA4A8D9C2BC8919C006ED4DC /* Crunch.app */;
@@ -292,6 +300,7 @@
 			mainGroup = BA4A8D932BC8919C006ED4DC;
 			packageReferences = (
 				BAE1C1DC2BD3281900183C8A /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				BAF596642C24DBD80086BADB /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
 			);
 			productRefGroup = BA4A8D9D2BC8919C006ED4DC /* Products */;
 			projectDirPath = "";
@@ -321,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAF215B62C1A3A0700DF85B2 /* EntriesList.swift in Sources */,
+				BAF596622C249D370086BADB /* Environment.swift in Sources */,
 				BAE1C1EC2BEAD59900183C8A /* CreatePoolPage.swift in Sources */,
 				BAF215C12C1A6C0E00DF85B2 /* CreatePoolChooseCircle.swift in Sources */,
 				BAF215D92C20F3FC00DF85B2 /* GolferListItem.swift in Sources */,
@@ -330,6 +340,7 @@
 				BAF215CF2C1CF4EC00DF85B2 /* Modifiers.swift in Sources */,
 				BAF215C92C1BA37500DF85B2 /* Event.swift in Sources */,
 				BAF215D72C20BA5700DF85B2 /* GolfPickSixSelections.swift in Sources */,
+				BAF596682C24DC7C0086BADB /* AppDelegate.swift in Sources */,
 				BA7F9CAB2C0117990044E4DD /* SignInForm.swift in Sources */,
 				BAF215BE2C1A52D600DF85B2 /* CreatePoolFlow.swift in Sources */,
 				BA58E0122BF6B38C00962E2E /* Profile.swift in Sources */,
@@ -354,7 +365,6 @@
 				BA58E0102BF6B1CB00962E2E /* Entry.swift in Sources */,
 				BAF215C32C1A6C4600DF85B2 /* CreatePoolChooseEvent.swift in Sources */,
 				BAF215D52C1E447E00DF85B2 /* MemberEntry.swift in Sources */,
-				BAE1C1DB2BD18E6E00183C8A /* Home.swift in Sources */,
 				BAF215B82C1A3B2E00DF85B2 /* CircleCard.swift in Sources */,
 				BA58E00B2BF56CAF00962E2E /* EntryPage.swift in Sources */,
 				BAF215BA2C1A41CB00DF85B2 /* Stripes.swift in Sources */,
@@ -498,6 +508,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Crunch/Crunch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Crunch/Preview Content\"";
@@ -534,6 +545,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Crunch/Crunch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Crunch/Preview Content\"";
@@ -597,6 +609,14 @@
 				minimumVersion = 2.5.1;
 			};
 		};
+		BAF596642C24DBD80086BADB /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BranchMetrics/ios-branch-sdk-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.4.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -629,6 +649,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BAE1C1DC2BD3281900183C8A /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
+		};
+		BAF596652C24DBD80086BADB /* BranchSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAF596642C24DBD80086BADB /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */;
+			productName = BranchSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

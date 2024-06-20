@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CreatePoolChooseEvent: View {
     @EnvironmentObject var appObject: AppObject
-    @EnvironmentObject var manager: CreateCircleManager
+    @EnvironmentObject var manager: CreatePoolManager
     @State var selectedEvent: Event?
     @State var events = [Event]()
     
@@ -60,5 +60,5 @@ struct CreatePoolChooseEvent: View {
 #Preview {
     CreatePoolChooseEvent()
         .environmentObject(AppObject.sample)
-        .environmentObject(CreateCircleManager())
+        .environmentObject(CreatePoolManager())
 }

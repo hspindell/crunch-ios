@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-final class CreateCircleManager: ObservableObject {
+final class CreatePoolManager: ObservableObject {
     enum Step {
         case circle, event, details
     }
     @Published var navigatingForward = true
     @Published var step = Step.circle
+    var firstStep = Step.circle
     
     var circle: CrCircle?
     var event: Event?
@@ -28,29 +29,27 @@ final class CreateCircleManager: ObservableObject {
     func goBack() {
         slideTo(step: step == .event ? .circle : .event, forward: false)
     }
+    
+    init(circle: CrCircle? = nil) {
+        self.circle = circle
+        self.firstStep = circle.isNil ? .circle : .event
+        self.step = self.firstStep
+    }
 
 }
 
 struct CreatePoolFlow: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var manager = CreateCircleManager()
+    @StateObject var manager: CreatePoolManager
     
-    private var step: CreateCircleManager.Step { manager.step }
+    private var step: CreatePoolManager.Step { manager.step }
+    
+    init(circle: CrCircle? = nil) {
+        self._manager = StateObject(wrappedValue: CreatePoolManager(circle: circle))
+    }
     
     var body: some View {
         VStack(spacing: 20) {
-            HStack {
-                if manager.step != .circle {
-                    Button("< Back") {
-                        manager.goBack()
-                    }
-                }
-                Spacer()
-                Button("Close") {
-                    dismiss()
-                }
-            }.padding(h: 15)
-
             Group {
                 if step == .circle {
                     CreatePoolChooseCircle()
@@ -73,6 +72,7 @@ struct CreatePoolFlow: View {
 }
 
 struct CreatePoolStepBody<Content: View>: View {
+    @EnvironmentObject var manager: CreatePoolManager
     var title: String
     var subtitle: String?
     var hPadding: CGFloat = 15
@@ -82,11 +82,22 @@ struct CreatePoolStepBody<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading) {
             Group {
-                Text(title)
-                    .font(.title)
+                HStack {
+                    if manager.step != manager.firstStep {
+                        BackButton {
+                            manager.goBack()
+                        }
+                        Spacer()
+                    }
+                    Text(title)
+                        .font(.system(size: 20, weight: .semibold))
+                    Spacer()
+                    CloseButton()
+                }
+
                 if let subtitle {
                     Text(subtitle)
-                        .font(.subheadline)
+                        .font(.system(size: 14))
                 }
             }
             VStack(spacing: 0) {

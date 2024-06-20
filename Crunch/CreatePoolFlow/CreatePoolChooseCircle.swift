@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CreatePoolChooseCircle: View {
     @EnvironmentObject var appObject: AppObject
-    @EnvironmentObject var manager: CreateCircleManager
+    @EnvironmentObject var manager: CreatePoolManager
     @State var selectedCircle: CrCircle?
     
     private var circlesAsAdmin: [CrCircle] {
@@ -54,5 +54,5 @@ struct CreatePoolChooseCircle: View {
 #Preview {
     CreatePoolChooseCircle()
         .environmentObject(AppObject.sample)
-        .environmentObject(CreateCircleManager())
+        .environmentObject(CreatePoolManager())
 }

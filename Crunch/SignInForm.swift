@@ -16,11 +16,14 @@ struct SignInForm: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            TextField("", text: .constant("")).hidden() // to keep height the same
-            TextField("Email", text: $email)
+            TextField("Enter email", text: $email)
                 .keyboardType(.emailAddress)
                 .textInputAutocapitalization(.never)
-            SecureField("Password", text: $password)
+                .textFieldStyle(CrunchFieldStyle())
+                .labeled("Email", font: .system(size: 12, weight: .semibold), color: .white)
+            SecureField("Enter password", text: $password)
+                .textFieldStyle(CrunchFieldStyle())
+                .labeled("Password", font: .system(size: 12, weight: .semibold), color: .white)
             Button("Sign in") {
                 Task {
                     inProgress = true
@@ -31,7 +34,6 @@ struct SignInForm: View {
             HStack {
                 Spacer()
                 Text("Need to create an account?")
-                    .foregroundStyle(Color.lightText)
                 Text("Sign up")
                     .fontWeight(.semibold)
                     .underline()

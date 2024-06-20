@@ -173,7 +173,7 @@ struct CirclePage: View {
         }
         .background(StripeBG())
         .fullScreenCover(isPresented: $showCreatePool, onDismiss: onPageAppear) {
-            CreatePoolFlow()
+            CreatePoolFlow(circle: circle)
         }
         .fullScreenCover(item: $selectedPool, onDismiss: onPageAppear) { pool in
             PoolPage(pool: pool)

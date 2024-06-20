@@ -20,21 +20,15 @@ struct LandingPage: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Image("inflatable_crunch")
+            Spacer()
+            
+            Image("full_logo_no_bg")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .background(Color.black)
-            
-            Divider()
-                .frame(height: 1)
-                .background(Color(red: 59/255, green: 80/255, blue: 56/255))
             
             Spacer()
 
             VStack(spacing: 20) {
-                ShadowedText("Crunch")
-                Spacer()
-
                 if signInMode {
                     SignInForm(signInMode: $signInMode)
                     .padding(.leading, 30)
@@ -47,10 +41,11 @@ struct LandingPage: View {
                     .transition(.slide)
                 }
             }
+            .foregroundStyle(Color.white)
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(.all)
-        .background(StripeBG())
+        .background(StripeBGTheme())
         .task {
             // TODO splash screen while checking login status
             await authStateObject.resumeSessionIfPossible()
@@ -67,15 +62,15 @@ struct LandingPage: View {
             UserHome()
                 .environmentObject(appObject)
         }
-        .onOpenURL { incomingURL in
-            print("App was opened via URL: \(incomingURL)")
-            if let appObject {
-                appObject.handleIncomingURL(incomingURL)
-                pendingDeepLinkURL = nil
-            } else {
-                pendingDeepLinkURL = incomingURL
-            }
-        }
+//        .onOpenURL { incomingURL in
+//            print("App was opened via URL: \(incomingURL)")
+//            if let appObject {
+//                appObject.handleIncomingURL(incomingURL)
+//                pendingDeepLinkURL = nil
+//            } else {
+//                pendingDeepLinkURL = incomingURL
+//            }
+//        }
         .environmentObject(authStateObject)
     }
 }

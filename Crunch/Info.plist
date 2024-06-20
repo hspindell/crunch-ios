@@ -15,5 +15,19 @@
 			</array>
 		</dict>
 	</array>
+	<key>branch_key</key>
+	<dict>
+		<key>live</key>
+		<string>key_live_pDmUqvRB4dCSLuqvxtbISdbdqsohuX5j</string>
+		<key>test</key>
+		<string>key_test_friKqENz8gBKMtCvqsdNSejprxfjF6Zs</string>
+	</dict>
+	<key>branch_universal_link_domains</key>
+	<array>
+		<string>crunchpools.com</string>
+		<string>qanku-alternate.app.link</string>
+		<string>qanku.test-app.link</string>
+		<string>qanku-alternate.test-app.link</string>
+	</array>
 </dict>
 </plist>

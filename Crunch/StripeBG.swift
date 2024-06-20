@@ -24,6 +24,16 @@ struct StripeBGDark: View {
     }
 }
 
+struct StripeBGTheme: View {
+    var reverse = false
+    var body: some View {
+        Stripes(config: StripesConfig(background: Color(hex: 0x24429c),
+                                      foreground: Color.gray.opacity(0.4), degrees: reverse ? 45 : -45, barWidth: 20, barSpacing: 20))
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+
 #Preview {
     VStack {
         StripeBG()
