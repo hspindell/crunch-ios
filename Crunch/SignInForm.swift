@@ -30,7 +30,9 @@ struct SignInForm: View {
                     await authObject.signIn(email: email, password: password)
                     inProgress = false
                 }
-            }.buttonStyle(CrunchButtonStyle())
+            }
+            .buttonStyle(CrunchButtonStyle())
+            .disabled(email.isEmpty || password.isEmpty)
             HStack {
                 Spacer()
                 Text("Need to create an account?")

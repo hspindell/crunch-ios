@@ -15,19 +15,25 @@ class AppObject: ObservableObject, Identifiable {
     
     /// Handles the incoming URL and performs validations before acknowledging.
     func handleIncomingURL(_ url: URL) {
-        guard url.scheme == "crunchapp" else {
-            return
-        }
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             print("Invalid deep link URL")
             return
         }
-
-        guard let actionRaw = components.host, let action = DeepLink.Action(rawValue: actionRaw) else {
-            print("Unknown deep link action")
+        var rawAction: String
+        
+        if url.scheme == "crunchapp" {
+            rawAction = components.host ?? ""
+        } else if url.absoluteString.starts(with: Env.current.branchBase) {
+            rawAction = components.path.replacingOccurrences(of: "/", with: "")
+        } else {
+            print("App opened by unrecognized source URL")
             return
         }
 
+        guard let action = DeepLink.Action(rawValue: rawAction) else {
+            print("Unknown deep link action")
+            return
+        }
         guard let id = components.queryItems?.first(where: { $0.name == "id" })?.value else {
             print("Deep link ID not found")
             return
@@ -62,13 +68,10 @@ class DeepLink {
     }
     
     static func build(action: Action, params: [URLQueryItem] = []) -> String {
-        // TODO fix to use branch link
         let queryString = params.compactMap { item in
             guard let val = item.value else { return nil }
             return "\(item.name)=\(val)"
         }.joined(separator: "&")
-        // TODO fix for prod environment
-        // and use crunchpools.com domain
-        return "https://qanku.test-app.link/\(action.rawValue)?\(queryString)"
+        return "\(Env.current.branchBase)/\(action.rawValue)?\(queryString)"
     }
 }

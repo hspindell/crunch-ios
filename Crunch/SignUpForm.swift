@@ -35,7 +35,9 @@ struct SignUpForm: View {
                     await authObject.signUp(email: email, username: username, password: password)
                     inProgress = false
                 }
-            }.buttonStyle(CrunchButtonStyle())
+            }
+            .buttonStyle(CrunchButtonStyle())
+            .disabled(email.isEmpty || username.isEmpty || password.isEmpty)
             HStack {
                 Spacer()
                 Text("Already have an account?")

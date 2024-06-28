@@ -14,6 +14,7 @@ struct Event: Codable, Identifiable, Hashable {
     var cover_image_url: String?
     var starts_at: Date
     var external_id: String?
+    var concluded: Bool
     
     var logoURL: URL? { logo_url?.url }
     var coverImageURL: URL? { cover_image_url?.url }
@@ -29,5 +30,5 @@ struct Event: Codable, Identifiable, Hashable {
 }
 
 extension Event {
-    static let sample = Event(id: .init(), title: "Event A", logo_url: "https://res.cloudinary.com/pgatour-prod/d_tournaments:logos:r000.png/tournaments/logos/r032.png", cover_image_url: "https://res.cloudinary.com/pgatour-prod/c_crop/d_placeholders:tournamentBackgroundSolid.png/pgatour/courses/r032/874/holes/hole18.jpg", starts_at: Date())
+    static let sample = Event(id: .init(), title: "Event A", logo_url: "https://res.cloudinary.com/pgatour-prod/d_tournaments:logos:r000.png/tournaments/logos/r032.png", cover_image_url: "https://res.cloudinary.com/pgatour-prod/c_crop/d_placeholders:tournamentBackgroundSolid.png/pgatour/courses/r032/874/holes/hole18.jpg", starts_at: Date(), concluded: false)
 }

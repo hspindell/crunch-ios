@@ -86,6 +86,12 @@ struct GolfPickSix: View {
                 .font(.system(size: 12))
                 .messageBox()
             
+            if golfPoolObject.topGolfers.isEmpty {
+                Text("You cannot make selections as the field is not yet set for this tournament. The field is typically set by the Monday preceding the event.")
+                    .font(.system(size: 12))
+                    .messageBox()
+            }
+
             VStack(spacing: 0) {
                 GolfPickSixSelections(selectionsByTier: selectionsByTier, viewable: viewable, currentTier: $currentTier)
                 

@@ -51,8 +51,8 @@ struct GolferLeaderboardDisplay: View {
                     .foregroundStyle(fontColor)
                     .font(.system(size: 12, weight: .bold))
             }
-            if leaderboard, let lastName = golfer?.last_name {
-                Text(lastName)
+            if leaderboard {
+                Text(golfer?.last_name ?? "N/A")
                     .font(.system(size: 12, weight: .semibold))
                     .lineLimit(1)
                     .padding(bottom: 8)

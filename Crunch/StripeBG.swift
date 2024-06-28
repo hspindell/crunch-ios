@@ -24,19 +24,41 @@ struct StripeBGDark: View {
     }
 }
 
-struct StripeBGTheme: View {
+struct StripeBGThemeBlue: View {
     var reverse = false
     var body: some View {
-        Stripes(config: StripesConfig(background: Color(hex: 0x24429c),
+        Stripes(config: StripesConfig(background: .themeBlue,
                                       foreground: Color.gray.opacity(0.4), degrees: reverse ? 45 : -45, barWidth: 20, barSpacing: 20))
         .edgesIgnoringSafeArea(.all)
     }
 }
+
+struct StripeBGThemeGreen: View {
+    var reverse = false
+    var body: some View {
+        Stripes(config: StripesConfig(background: .themeGreen,
+                                      foreground: Color.white.opacity(0.15), degrees: reverse ? 45 : -45, barWidth: 20, barSpacing: 20))
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct StripeBGError: View {
+    var reverse = false
+    var body: some View {
+        Stripes(config: StripesConfig(background: Color(hex: 0xfaa49d),
+                                      foreground: Color.white.opacity(0.3), degrees: reverse ? 45 : -45, barWidth: 20, barSpacing: 20))
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
 
 
 #Preview {
     VStack {
         StripeBG()
         StripeBGDark()
+        StripeBGThemeBlue()
+        StripeBGThemeGreen()
+        StripeBGError()
     }
 }

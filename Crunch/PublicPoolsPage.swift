@@ -55,28 +55,35 @@ struct PublicPoolsPage: View {
             }.padding(leading: -15)
 
             Divider()
+                .background(Color.white)
                 .padding(top: 10)
             
-            ScrollView {
-                VStack(spacing: 10) {
-                    if let unjoinedPools = pools.filter({ !userHasJoined(pool: $0) }).presence {
-                        ForEach(Array(unjoinedPools.enumerated()), id: \.0) { idx, p  in
-                            PublicPoolListItem(pool: p, cardColor: cardColor(forIndex: idx))
-                            .onTapGesture {
-                                selectedPool = p
+            
+            if let unjoinedPools = pools.filter({ !userHasJoined(pool: $0) }).presence {
+                ScrollView {
+                    VStack(spacing: 10) {
+                            ForEach(Array(unjoinedPools.enumerated()), id: \.0) { idx, p  in
+                                PublicPoolListItem(pool: p, cardColor: .backgroundCream)
+                                .onTapGesture {
+                                    selectedPool = p
+                                }
                             }
                         }
-                    } else {
-                        Text("No joinable pools found.")
-                    }
                 }.padding(v: 15)
+            } else {
+                Text("No joinable pools found.")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(Color.white)
+                    .padding(top: 15)
+                Spacer()
             }
+            
         }
         .fullScreenCover(item: $selectedPool) { pool in
             PoolPage(pool: pool)
         }
         .padding(15)
-        .background(StripeBG())
+        .background(StripeBGThemeBlue())
         .task {
             await fetchAvailable()
         }

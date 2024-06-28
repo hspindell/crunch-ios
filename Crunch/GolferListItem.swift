@@ -13,7 +13,7 @@ struct GolferListItem: View {
     
     var body: some View {
         HStack(spacing: 15) {
-            Text("\(golfer.rank)")
+            Text(selected ? "\(Image(systemName: "checkmark"))" : "—")
                 .frame(width: 40, height: 40)
                 .leadingHighlight(selected ? Color.crunchYellow : Color.white)
                 

@@ -11,6 +11,7 @@ import Supabase
 class AuthStateObject: ObservableObject {
     @Published var authenticatedUser: User?
     @Published var authenticatedProfile: Profile?
+    @Published var error: Error?
     
     func resumeSessionIfPossible() async {
         do {
@@ -22,6 +23,7 @@ class AuthStateObject: ObservableObject {
     }
     
     func signUp(email: String, username: String, password: String) async {
+        await MainActor.run { self.error = nil }
         do {
             let authResponse = try await supabase.auth.signUp(email: email, password: password)
             let result: Profile = try await supabase
@@ -38,15 +40,22 @@ class AuthStateObject: ObservableObject {
             }
         } catch {
             print("signUp: \(error.localizedDescription)")
+            await MainActor.run {
+                self.error = "Account creation failed with error: \(error.localizedDescription)".err
+            }
         }
     }
     
     func signIn(email: String, password: String) async {
+        await MainActor.run { self.error = nil }
         do {
             let session = try await supabase.auth.signIn(email: email, password: password)
             await fetchProfile(from: session.user)
         } catch {
             print("signIn: \(error.localizedDescription)")
+            await MainActor.run {
+                self.error = "Sign in failed with error: \(error.localizedDescription)".err
+            }
         }
     }
     

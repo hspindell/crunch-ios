@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         
         Branch.getInstance().initSession(launchOptions: launchOptions) { (params, error) in
+            print("Branch deep link handler invoked")
             print(params as? [String: AnyObject] ?? {})
             // Access and use Branch Deep Link data here (nav to page, display content, etc.)
             

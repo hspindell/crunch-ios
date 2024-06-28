@@ -13,7 +13,7 @@ struct Golfer: Codable, Identifiable, Equatable {
     var pga_id: String
     var first_name: String
     var last_name: String
-    var rank: Int
+    var rank: Int?
     var avatar_url: String?
     var avatarURL: URL? { avatar_url?.url }
     var country: String
@@ -41,6 +41,7 @@ struct Golfer: Codable, Identifiable, Equatable {
         "RSA": "za",
         "SCO": "gb-sct",
         "SWE": "se",
+        "TPE": "tw",
         "USA": "us",
     ]
     

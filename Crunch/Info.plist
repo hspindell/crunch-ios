@@ -29,5 +29,7 @@
 		<string>qanku.test-app.link</string>
 		<string>qanku-alternate.test-app.link</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>

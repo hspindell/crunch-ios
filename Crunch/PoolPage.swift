@@ -36,11 +36,9 @@ class GolfPoolObject: PoolObject {
     func fetchGolfers() async {
         do {
             let result: [Golfer] = try await supabase
-                .rpc("top_golfers_for_event", params: ["start_date": (event?.starts_at ?? Date()).ISO8601Format()])
-                .select()
+                .rpc("golf_event_field", params: ["event_id": event?.id])
               .execute()
               .value
-            
             var idMap = [String: Golfer]()
             result.forEach { g in
                 idMap[g.id.description] = g
@@ -169,7 +167,7 @@ struct PoolPage: View {
             .padding(v: 15)
             .frame(height: 175)
             .background(
-                StripeBGTheme()
+                StripeBGThemeBlue()
                     .overlay {
                         AsyncImage(url: pool.event?.coverImageURL) { result in
                             result.image?
@@ -189,7 +187,7 @@ struct PoolPage: View {
                 }
                 
                 if let event = poolObject.event, event.started == true {
-                    Text("This event has started and entries have been locked.")
+                    Text(event.concluded ? "This event has concluded. Time to pay up!" : "This event has started and entries have been locked.")
                         .font(.system(size: 12))
                         .messageBox()
                     
@@ -287,8 +285,8 @@ struct CloseButton: View {
     
     var body: some View {
         Text("X")
-            .font(.system(size: 16, weight: .bold))
-            .padding(8)
+            .font(.system(size: 18, weight: .bold))
+            .padding(10)
             .background(Color.white)
             .clipShape(Circle())
             .onTapGesture {

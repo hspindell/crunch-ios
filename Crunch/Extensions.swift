@@ -135,6 +135,9 @@ extension Color {
     static let crunchPurple = Color(red: 183/255, green: 131/255, blue: 223/255)
     static let crunchGreen = Color(red: 146/255, green: 239/255, blue: 107/255)
     static let crunchOrange = Color(red: 1, green: 155/255, blue: 0)
+    
+    static let themeBlue = Color(hex: 0x24429c)
+    static let themeGreen = Color(hex: 0x1ca64c)
 }
 
 extension UIColor {

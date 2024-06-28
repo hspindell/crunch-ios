@@ -73,9 +73,10 @@ struct GolfPoolLeaderboard: View {
                     return response.leaderboard[String(golferId)]
                 }
                 let topX = picksResults.sorted(by: { a, b in a.adjustedScore < b.adjustedScore }).prefix(upTo: min(4, picksResults.count))
+                let topXIds = topX.map(\.golferId) + Array(repeating: "", count: max(4 - topX.count, 0))
                 return (entry, GolfPickSixEntryResult(entryId: entry.id,
                                               sumAdjustedScore: topX.map(\.adjustedScore).reduce(0, +),
-                                              topGolferIds: topX.map(\.golferId)))
+                                              topGolferIds: topXIds))
             }
             
             orderedEntries = entryResults.sorted(by: { a, b in
@@ -108,8 +109,11 @@ struct GolfPoolLeaderboard: View {
                         ForEach(entryResult.topGolferIds, id: \.self) { golferId in
                             if let golfer = poolObject.golfersById[golferId] {
                                 GolferLeaderboardDisplay(golfer: golfer, scoreDisplay: leaderboard[golferId]?.scoreDisplay ?? "??")
+                            } else {
+                                GolferLeaderboardDisplay(scoreDisplay: "N/A")
                             }
                         }
+                        // TODO ensure 4 slots are filled
                     }
                 }
                 .background(Color.black)
