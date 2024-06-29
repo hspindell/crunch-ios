@@ -51,11 +51,21 @@ struct StripeBGError: View {
     }
 }
 
+struct StripeBGWhite: View {
+    var reverse = false
+    var body: some View {
+        Stripes(config: StripesConfig(background: Color.white,
+                                      foreground: Color.gray.opacity(0.05), degrees: reverse ? 45 : -45, barWidth: 20, barSpacing: 20))
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
 
 
 #Preview {
     VStack {
         StripeBG()
+        StripeBGWhite()
         StripeBGDark()
         StripeBGThemeBlue()
         StripeBGThemeGreen()

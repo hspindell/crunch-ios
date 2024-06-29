@@ -17,6 +17,7 @@ struct Pool: Codable, Identifiable {
     var details: String?
     var pool_type: String
     var is_public: Bool
+    var concluded: Bool
     
     var events: Event?
     var event: Event? { events }
@@ -39,5 +40,5 @@ struct PoolCreate: Codable {
 }
 
 extension Pool {
-    static let sample = Pool(id: UUID(), created_at: Date(), admin_id: UUID(), event_id: Event.sample.id, title: "Banana Pool", pool_type: PoolType.golfPickSix.rawValue, is_public: true, events: Event.sample)
+    static let sample = Pool(id: UUID(), created_at: Date(), admin_id: UUID(), event_id: Event.sample.id, title: "Banana Pool", pool_type: PoolType.golfPickSix.rawValue, is_public: true, concluded: false, events: Event.sample)
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseMessaging
 import Supabase
 
 class AuthStateObject: ObservableObject {
@@ -17,6 +18,7 @@ class AuthStateObject: ObservableObject {
         do {
             let session = try await supabase.auth.session
             await fetchProfile(from: session.user)
+            await updateFCMToken()
         } catch {
             print("resumeSessionIfPossible: \(error.localizedDescription)")
         }
@@ -26,9 +28,13 @@ class AuthStateObject: ObservableObject {
         await MainActor.run { self.error = nil }
         do {
             let authResponse = try await supabase.auth.signUp(email: email, password: password)
+            var updates = ["username": username]
+            if let fcmToken = try? await Messaging.messaging().token() {
+                updates["fcm_token"] = fcmToken
+            }
             let result: Profile = try await supabase
                 .from("profiles")
-                .update(["username": username])
+                .update(updates)
                 .eq("id", value: authResponse.user.id)
                 .select()
                 .single()
@@ -51,11 +57,31 @@ class AuthStateObject: ObservableObject {
         do {
             let session = try await supabase.auth.signIn(email: email, password: password)
             await fetchProfile(from: session.user)
+            await updateFCMToken()
         } catch {
             print("signIn: \(error.localizedDescription)")
             await MainActor.run {
                 self.error = "Sign in failed with error: \(error.localizedDescription)".err
             }
+        }
+    }
+    
+    func updateFCMToken(_ token: String? = nil) async {
+        guard let profileId = authenticatedProfile?.id else {
+            return
+        }
+        do {
+            var fcmToken = token ?? ""
+            if fcmToken.isEmpty {
+                fcmToken = try await Messaging.messaging().token()
+            }
+            try await supabase
+                .from("profiles")
+                .update(["fcm_token": fcmToken])
+                .eq("id", value: profileId)
+                .execute()
+        } catch {
+            print("updateFCMToken: \(error)")
         }
     }
     

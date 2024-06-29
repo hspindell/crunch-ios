@@ -92,11 +92,11 @@ extension View {
             Spacer()
         }
         .padding(10)
-        .background(Color.backgroundCream.opacity(0.6))
+        .background(StripeBGWhite())
         .clipShape(RoundedRectangle(cornerRadius: 6))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.gray, lineWidth: 1)
+                .stroke(Color.gray, lineWidth: 2)
         )
     }
     

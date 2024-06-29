@@ -24,12 +24,10 @@
 	</dict>
 	<key>branch_universal_link_domains</key>
 	<array>
-		<string>crunchpools.com</string>
-		<string>qanku-alternate.app.link</string>
-		<string>qanku.test-app.link</string>
-		<string>qanku-alternate.test-app.link</string>
+		<string>crunchpools.app.link</string>
+		<string>crunchpools-alternate.app.link</string>
+		<string>crunchpools.test-app.link</string>
+		<string>crunchpools-alternate.test-app.link</string>
 	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 </dict>
 </plist>

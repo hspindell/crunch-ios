@@ -134,7 +134,7 @@ struct CirclePage: View {
                         .padding(top: 10)
                 } else {
                     EntriesList(pools: pools, selectedPool: $selectedPool, showFindPool: .constant(false), showCreatePool: $showCreatePool)
-                        .padding(h: -15)
+                        .padding(h: -30)
                 }
                 
                 

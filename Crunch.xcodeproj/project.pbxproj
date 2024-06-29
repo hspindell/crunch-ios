@@ -10,12 +10,15 @@
 		BA2C26AE2BFEB0C000C65AEB /* CreateCirclePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2C26AD2BFEB0C000C65AEB /* CreateCirclePage.swift */; };
 		BA42785C2C2B8207005CA49E /* ErrorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA42785B2C2B8207005CA49E /* ErrorBar.swift */; };
 		BA42785E2C2B837B005CA49E /* BasicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA42785D2C2B837B005CA49E /* BasicError.swift */; };
+		BA4278602C2F47B9005CA49E /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA42785F2C2F47B9005CA49E /* Splash.swift */; };
+		BA4278622C2F5CF1005CA49E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA4278612C2F5CF1005CA49E /* Launch Screen.storyboard */; };
+		BA4278642C2F69E5005CA49E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA4278632C2F69E5005CA49E /* GoogleService-Info.plist */; };
+		BA4278672C2F6AE1005CA49E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = BA4278662C2F6AE1005CA49E /* FirebaseMessaging */; };
 		BA4A8DA02BC8919C006ED4DC /* CrunchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8D9F2BC8919C006ED4DC /* CrunchApp.swift */; };
 		BA4A8DA22BC8919C006ED4DC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8DA12BC8919C006ED4DC /* ContentView.swift */; };
 		BA4A8DA42BC8919C006ED4DC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8DA32BC8919C006ED4DC /* Item.swift */; };
 		BA4A8DA62BC8919E006ED4DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4A8DA52BC8919E006ED4DC /* Assets.xcassets */; };
 		BA4A8DA92BC8919E006ED4DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4A8DA82BC8919E006ED4DC /* Preview Assets.xcassets */; };
-		BA4A8DB02BC9AD45006ED4DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA4A8DAF2BC9AD45006ED4DC /* GoogleService-Info.plist */; };
 		BA58E00B2BF56CAF00962E2E /* EntryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA58E00A2BF56CAF00962E2E /* EntryPage.swift */; };
 		BA58E00D2BF5713100962E2E /* GolfPickSix.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA58E00C2BF5713100962E2E /* GolfPickSix.swift */; };
 		BA58E0102BF6B1CB00962E2E /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA58E00F2BF6B1CB00962E2E /* Entry.swift */; };
@@ -72,16 +75,17 @@
 
 /* Begin PBXFileReference section */
 		BA2C26AD2BFEB0C000C65AEB /* CreateCirclePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCirclePage.swift; sourceTree = "<group>"; };
-		BA2C26AF2BFF131F00C65AEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BA42785B2C2B8207005CA49E /* ErrorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBar.swift; sourceTree = "<group>"; };
 		BA42785D2C2B837B005CA49E /* BasicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicError.swift; sourceTree = "<group>"; };
+		BA42785F2C2F47B9005CA49E /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
+		BA4278612C2F5CF1005CA49E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		BA4278632C2F69E5005CA49E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BA4A8D9C2BC8919C006ED4DC /* Crunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4A8D9F2BC8919C006ED4DC /* CrunchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrunchApp.swift; sourceTree = "<group>"; };
 		BA4A8DA12BC8919C006ED4DC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BA4A8DA32BC8919C006ED4DC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BA4A8DA52BC8919E006ED4DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA4A8DA82BC8919E006ED4DC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BA4A8DAF2BC9AD45006ED4DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BA58E00A2BF56CAF00962E2E /* EntryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPage.swift; sourceTree = "<group>"; };
 		BA58E00C2BF5713100962E2E /* GolfPickSix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfPickSix.swift; sourceTree = "<group>"; };
 		BA58E00F2BF6B1CB00962E2E /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4278672C2F6AE1005CA49E /* FirebaseMessaging in Frameworks */,
 				BAE1C1DE2BD3281900183C8A /* Auth in Frameworks */,
 				BAE1C1E82BD3281900183C8A /* Supabase in Frameworks */,
 				BAF596662C24DBD80086BADB /* BranchSDK in Frameworks */,
@@ -167,12 +172,12 @@
 		BA4A8D9E2BC8919C006ED4DC /* Crunch */ = {
 			isa = PBXGroup;
 			children = (
+				BA4278632C2F69E5005CA49E /* GoogleService-Info.plist */,
+				BA4278612C2F5CF1005CA49E /* Launch Screen.storyboard */,
 				BAF596632C24D7BC0086BADB /* Crunch.entitlements */,
 				BAF215D82C20F3FC00DF85B2 /* GolferListItem.swift */,
 				BAF215BF2C1A6BFF00DF85B2 /* CreatePoolFlow */,
-				BA2C26AF2BFF131F00C65AEB /* Info.plist */,
 				BA58E00E2BF6B1C000962E2E /* Models */,
-				BA4A8DAF2BC9AD45006ED4DC /* GoogleService-Info.plist */,
 				BA4A8D9F2BC8919C006ED4DC /* CrunchApp.swift */,
 				BA4A8DA12BC8919C006ED4DC /* ContentView.swift */,
 				BA4A8DA32BC8919C006ED4DC /* Item.swift */,
@@ -214,6 +219,7 @@
 				BAF596672C24DC7C0086BADB /* AppDelegate.swift */,
 				BA42785B2C2B8207005CA49E /* ErrorBar.swift */,
 				BA42785D2C2B837B005CA49E /* BasicError.swift */,
+				BA42785F2C2F47B9005CA49E /* Splash.swift */,
 			);
 			path = Crunch;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 				BAE1C1E52BD3281900183C8A /* Storage */,
 				BAE1C1E72BD3281900183C8A /* Supabase */,
 				BAF596652C24DBD80086BADB /* BranchSDK */,
+				BA4278662C2F6AE1005CA49E /* FirebaseMessaging */,
 			);
 			productName = payup;
 			productReference = BA4A8D9C2BC8919C006ED4DC /* Crunch.app */;
@@ -307,6 +314,7 @@
 			packageReferences = (
 				BAE1C1DC2BD3281900183C8A /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				BAF596642C24DBD80086BADB /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
+				BA4278652C2F6AE1005CA49E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = BA4A8D9D2BC8919C006ED4DC /* Products */;
 			projectDirPath = "";
@@ -322,9 +330,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4278622C2F5CF1005CA49E /* Launch Screen.storyboard in Resources */,
 				BA4A8DA92BC8919E006ED4DC /* Preview Assets.xcassets in Resources */,
+				BA4278642C2F69E5005CA49E /* GoogleService-Info.plist in Resources */,
 				BA4A8DA62BC8919E006ED4DC /* Assets.xcassets in Resources */,
-				BA4A8DB02BC9AD45006ED4DC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +382,7 @@
 				BAF215D52C1E447E00DF85B2 /* MemberEntry.swift in Sources */,
 				BAF215B82C1A3B2E00DF85B2 /* CircleCard.swift in Sources */,
 				BA42785E2C2B837B005CA49E /* BasicError.swift in Sources */,
+				BA4278602C2F47B9005CA49E /* Splash.swift in Sources */,
 				BA58E00B2BF56CAF00962E2E /* EntryPage.swift in Sources */,
 				BAF215BA2C1A41CB00DF85B2 /* Stripes.swift in Sources */,
 				BAE1C1EE2BEC2CF300183C8A /* PoolPage.swift in Sources */,
@@ -528,9 +538,10 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -565,9 +576,10 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -609,6 +621,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BA4278652C2F6AE1005CA49E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.1;
+			};
+		};
 		BAE1C1DC2BD3281900183C8A /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/supabase/supabase-swift.git";
@@ -628,6 +648,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BA4278662C2F6AE1005CA49E /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BA4278652C2F6AE1005CA49E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		BAE1C1DD2BD3281900183C8A /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BAE1C1DC2BD3281900183C8A /* XCRemoteSwiftPackageReference "supabase-swift" */;

@@ -87,6 +87,7 @@ struct UserHome: View {
                   """
                 )
                 .eq("profile_id", value: appObject.userProfile.id)
+                .order("created_at", ascending: false)
                 .execute()
                 .value
             

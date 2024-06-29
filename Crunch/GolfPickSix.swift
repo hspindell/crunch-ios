@@ -27,16 +27,20 @@ struct GolfPickSix: View {
     let tierSize = 10
     @State var entry: Entry
     
-    var isMyEntry: Bool {
+    private var isMyEntry: Bool {
         entry.profile_id == appObject.userProfile.id
     }
     
-    var viewable: Bool {
-        isMyEntry || event.started
+    private var viewable: Bool {
+        fieldSet && (isMyEntry || event.started)
     }
 
-    var editable: Bool {
-        isMyEntry && !event.started
+    private var editable: Bool {
+        isMyEntry && !event.started && fieldSet
+    }
+    
+    private var fieldSet: Bool {
+        golfPoolObject.topGolfers.isEmpty == false
     }
     
     func fetchGolfers() {
@@ -81,19 +85,19 @@ struct GolfPickSix: View {
     }
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 10) {
             Text("In this format, participants choose one golfer in each of six tiers, determined by the Official World Golf Ranking prior to the event's start. The entry's score will be the sum of the four best golfer's scores. Golfers are assigned a score of +8 for each round they fail to complete.")
                 .font(.system(size: 12))
                 .messageBox()
-            
-            if golfPoolObject.topGolfers.isEmpty {
-                Text("You cannot make selections as the field is not yet set for this tournament. The field is typically set by the Monday preceding the event.")
-                    .font(.system(size: 12))
-                    .messageBox()
-            }
 
             VStack(spacing: 0) {
-                GolfPickSixSelections(selectionsByTier: selectionsByTier, viewable: viewable, currentTier: $currentTier)
+                if fieldSet {
+                    GolfPickSixSelections(selectionsByTier: selectionsByTier, viewable: viewable, currentTier: $currentTier)
+                } else {
+                    Text("You cannot make selections as the field is not yet set for this tournament. The field is typically set by the Monday preceding the event.")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Color.white)
+                }
                 
                 if viewable {
                     HStack {
@@ -164,7 +168,7 @@ struct GolfPickSix: View {
 }
 
 #Preview {
-    GolfPickSix(event: Event(id: UUID(), title: "My event", starts_at: Date()), entry: Entry(profile_id: UUID(), pool_id: UUID(), complete: false, title: "banana"))
+    GolfPickSix(event: Event(id: UUID(), title: "My event", starts_at: Date(), concluded: false), entry: Entry(profile_id: UUID(), pool_id: UUID(), complete: false, title: "banana"))
         .environmentObject(AppObject.sample)
         .environmentObject(GolfPoolObject(pool: Pool.sample))
         .environmentObject(PoolObject(pool: Pool.sample))

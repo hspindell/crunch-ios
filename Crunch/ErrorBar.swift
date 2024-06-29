@@ -13,6 +13,7 @@ struct ErrorBar: View {
         HStack {
             Text(text)
                 .font(.system(size: 14, weight: .semibold))
+                .fixedSize(horizontal: false, vertical: true)
                 .foregroundStyle(Color.black)
             Spacer()
         }
@@ -23,5 +24,5 @@ struct ErrorBar: View {
 }
 
 #Preview {
-    ErrorBar(text: "An error is happening here")
+    ErrorBar(text: "An error is happening here An error is happening here An error is happening here An error is happening here")
 }

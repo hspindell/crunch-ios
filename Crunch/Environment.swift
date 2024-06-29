@@ -21,28 +21,32 @@ let debug = false
 #endif
 
 enum Env {
-    case dev, prod
+    case local, dev, prod
     
     #if DEBUG
     static var current = Env.dev
-    static var isDev: Bool { current == .dev }
     #else
     static let current = Env.prod
-    static let isDev = false
     #endif
     
     var supabaseURL: URL {
-        if self == .dev {
+        switch self {
+        case .local:
+            return "http://127.0.0.1:54321".url!
+        case .dev:
             return "https://arsfsniyfuubvmnwxhvh.supabase.co".url!
-        } else {
+        case .prod:
             return "https://udsnsgirpuaqnfpamcpw.supabase.co".url!
         }
     }
     
     var supabaseKey: String {
-        if self == .dev {
+        switch self {
+        case .local:
+            return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
+        case .dev:
             return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyc2Zzbml5ZnV1YnZtbnd4aHZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTM1NTg3MzQsImV4cCI6MjAyOTEzNDczNH0.XLSfAlrkG1PydgkUBswpV7cIQ0uFyDBDa-Hmltyh7UY"
-        } else {
+        case .prod:
             return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkc25zZ2lycHVhcW5mcGFtY3B3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTg5MDQxMDksImV4cCI6MjAzNDQ4MDEwOX0.pp80oBQThK3anzSuoC4qUB24z-uAj-z4xyvVn1NQIF0"
         }
     }
