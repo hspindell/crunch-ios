@@ -10,9 +10,10 @@ import BranchSDK
 import FirebaseCore
 import FirebaseMessaging
 
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        print("didFinishLaunchingWithOptions")
         FirebaseApp.configure()
         
         Branch.getInstance().initSession(launchOptions: launchOptions) { (params, error) in
@@ -21,22 +22,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             // Access and use Branch Deep Link data here (nav to page, display content, etc.)
             
         }
-//        Branch.getInstance().validateSDKIntegration()
+        //        Branch.getInstance().validateSDKIntegration()
         
         // TODO move permission request to popup that asks after login or similar
         UNUserNotificationCenter.current().delegate = self
-
+        
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
-          options: authOptions,
-          completionHandler: { _, _ in }
+            options: authOptions,
+            completionHandler: { _, _ in }
         )
         application.registerForRemoteNotifications()
         
         Messaging.messaging().delegate = self
-
+        
         return true
     }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("didRegisterForRemoteNotificationsWithDeviceToken: \(deviceToken)")
@@ -46,6 +50,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("didFailToRegisterForRemoteNotificationsWithError: \(error.localizedDescription)")
     }
     
+    func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        print("userNotificationCenter didReceive: \(response)")
+        // TODO replace with observable object publisher?
+        NotificationCenter.default.post(
+          name: Notification.Name("PushData"),
+          object: nil,
+          userInfo: ["data": response.notification.request.content.userInfo]
+        )
+    }
+    
+    // Needed if notifications should be presented while the app is in the foreground
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        print("userNotificationCenter willPresent: \(notification.request.content.userInfo))")
+        completionHandler([.list, .banner, .sound])
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("[FCM] didReceiveRegistrationToken: \(fcmToken ?? "none")")
         let dataDict: [String: String] = ["token": fcmToken ?? ""]

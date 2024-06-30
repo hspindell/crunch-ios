@@ -14,6 +14,7 @@ struct LandingPage: View {
     @State var checkedSession = false
     @State var signInMode = false
     @State var pendingDeepLinkURL: URL?
+    @State var pendingPushData: [String : Any]?
     
     @State var appObject: AppObject?
     
@@ -23,6 +24,9 @@ struct LandingPage: View {
     
     let fcmTokenPublisher = NotificationCenter.default
                 .publisher(for: NSNotification.Name("FCMToken"))
+    
+    let pushPublisher = NotificationCenter.default
+                .publisher(for: NSNotification.Name("PushData"))
     
     var body: some View {
         Group {
@@ -79,7 +83,7 @@ struct LandingPage: View {
         })
         .onChange(of: authStateObject.authenticatedProfile) { oldValue, newValue in
             if let newValue {
-                appObject = AppObject(userProfile: newValue, pendingDeepLinkURL: pendingDeepLinkURL)
+                appObject = AppObject(userProfile: newValue, pendingDeepLinkURL: pendingDeepLinkURL, pendingPushData: pendingPushData)
             } else {
                 appObject = nil
                 signInMode = true
@@ -102,6 +106,18 @@ struct LandingPage: View {
             guard let token = message.userInfo?["token"] as? String else { return }
             Task {
                 await authStateObject.updateFCMToken(token)
+            }
+        }
+        .onReceive(pushPublisher) { message in
+            guard let data = message.userInfo?["data"] as? [String : Any] else { return }
+            print(data)
+            // NOTE we only want to do this if the user tapped on the notification
+            // otherwise we just want to present it as usual
+            if let appObject {
+                appObject.handlePush(data: data)
+                pendingPushData = nil
+            } else {
+                pendingPushData = data
             }
         }
         .environmentObject(authStateObject)

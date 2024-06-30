@@ -46,7 +46,7 @@ struct CirclePage: View {
                   """
                 )
                 .eq("profiles_circles.circle_id", value: circle.id)
-                .order("created_at", ascending: false, referencedTable: "profiles_circles")
+                .order("created_at", ascending: false, referencedTable: "profiles_circles") // TODO this order doesn't work
                 .execute()
               .value
             await MainActor.run {

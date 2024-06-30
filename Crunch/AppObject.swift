@@ -48,15 +48,25 @@ class AppObject: ObservableObject, Identifiable {
         }
     }
     
+    func handlePush(data: [String : Any]) {
+        if let circleId = data["circle_id"] as? String {
+            deepLinkCircleId = circleId
+        } else if let poolId = data["pool_id"] as? String {
+            deepLinkPoolId = poolId
+        }
+    }
+    
     func clearDeepLinks() {
         deepLinkPoolId = nil
         deepLinkCircleId = nil
     }
     
-    init(userProfile: Profile, pendingDeepLinkURL: URL? = nil) {
+    init(userProfile: Profile, pendingDeepLinkURL: URL? = nil, pendingPushData: [String : Any]? = nil) {
         self.userProfile = userProfile
         if let pendingDeepLinkURL {
             handleIncomingURL(pendingDeepLinkURL)
+        } else if let pendingPushData {
+            handlePush(data: pendingPushData)
         }
     }
 }
